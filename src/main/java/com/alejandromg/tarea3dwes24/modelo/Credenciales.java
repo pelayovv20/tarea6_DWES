@@ -24,7 +24,6 @@ import jakarta.persistence.Table;
 		
 		@Column(unique=true)
 		private String usuario;
-		
 		@Column
 		private String password;
 		@OneToOne
