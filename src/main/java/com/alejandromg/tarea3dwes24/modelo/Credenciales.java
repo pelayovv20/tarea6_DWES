@@ -27,7 +27,6 @@ import jakarta.persistence.Table;
 		
 		@Column
 		private String password;
-		
 		@OneToOne
 		@JoinColumn(name="idPersona", unique=true)
 		private Persona persona;
