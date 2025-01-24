@@ -33,7 +33,6 @@ public class FachadaPersonal {
 
     @Autowired
     private ServiciosEjemplar serviciosEjemplar;
-
     @Autowired
     private ServiciosMensaje serviciosMensaje;
 
