@@ -29,7 +29,6 @@ public class FachadaAdmin {
 
     @Autowired
     private ServiciosPlanta servPlanta;
-
     @Autowired
     private ServiciosEjemplar servEjemplar;
 
