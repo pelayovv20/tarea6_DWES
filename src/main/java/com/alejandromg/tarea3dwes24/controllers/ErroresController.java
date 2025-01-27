@@ -1,27 +1,26 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ErroresController implements ErrorController {
+public class ErroresController{
 
-    @GetMapping("/error")
+    @GetMapping("/error404")
     public String manejar404() {
         return "error-404";
     }
     
-    @GetMapping("/error")
+    @GetMapping("/error400")
     public String manejar400() {
         return "error-400";
     }
-    @GetMapping("/error")
+    @GetMapping("/error403")
     public String manejar403() {
         return "error-403";
     }
     
-    @GetMapping("/error")
+    @GetMapping("/error500")
     public String manejar500() {
         return "error-500";
     }
