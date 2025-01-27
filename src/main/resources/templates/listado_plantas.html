@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +37,7 @@
             
          </main>
 
-        <a href="invitado.html" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
+        <a th:href="@{/}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 
 
 </body>

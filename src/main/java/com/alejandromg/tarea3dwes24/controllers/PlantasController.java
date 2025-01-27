@@ -13,9 +13,9 @@ public class PlantasController {
 	@Autowired
 	private ServiciosPlanta servPlanta;
 	
-	 @GetMapping("/plantas")
-	    public String listarPlantas(Model model) {
-	        model.addAttribute("listado_plantas", servPlanta.verTodas());
-	        return "listado_plantas";
-	    }
+	@GetMapping("/plantas")
+    public String listarPlantas(Model model) {
+        model.addAttribute("plantas", servPlanta.verTodas());
+        return "listado_plantas";
+    }
 }
