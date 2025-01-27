@@ -1,6 +1,5 @@
 body{
-    background: rgb(193,241,161);
-	background: linear-gradient(90deg, rgba(193,241,161,0.87) 0%, rgba(62,121,9,1) 100%, rgba(0,212,255,1) 100%);
+    background-color:rgb(193, 241, 161);
 }
 
 header img{
@@ -79,4 +78,12 @@ main h1{
     background-color:#212529;
     
 }
+
+form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
 
