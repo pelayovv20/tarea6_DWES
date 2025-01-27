@@ -1,5 +1,6 @@
 body{
-    background-color:rgb(193, 241, 161);
+    background: rgb(193,241,161);
+	background: linear-gradient(90deg, rgba(193,241,161,0.87) 0%, rgba(62,121,9,1) 100%, rgba(0,212,255,1) 100%);
 }
 
 header img{
