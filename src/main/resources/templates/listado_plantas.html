@@ -16,27 +16,25 @@
         
     </header>
 
-    <main> 
-        <h1>Listado de plantas</h1> 
-        <table class="table table-striped table-hover mt-4"> 
-            <thead class="table-dark"> 
-                <tr> 
-                    <th>Código</th> 
-                    <th>Nombre Común</th>
-                    <th>Nombre Científico</th> 
-                </tr> 
-            </thead> 
-            <tbody> 
-            	<tr th:each="planta : ${plantas}">
+    <main class="container mt-5">
+        <h1 class="text-center mb-4">Listado de Plantas</h1>
+        <table class="table table-bordered table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nombre Común</th>
+                    <th scope="col">Nombre Científico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="planta : ${plantas}">
                     <td th:text="${planta.codigo}"></td>
                     <td th:text="${planta.nombreComun}"></td>
                     <td th:text="${planta.nombreCientifico}"></td>
                 </tr>
-            </tbody> 
-        </table> 
-            
-         </main>
-
+            </tbody>
+        </table>
+    </main>
         <a th:href="@{/}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 
 
