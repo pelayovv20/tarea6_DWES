@@ -18,4 +18,10 @@ public class PlantasController {
         model.addAttribute("plantas", servPlanta.verTodas());
         return "listado_plantas";
     }
+	
+
+	@GetMapping("/gestion_plantas")
+	public String gestionPlantas() {
+	    return "gestion_plantas";
+	}
 }

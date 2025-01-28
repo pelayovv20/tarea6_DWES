@@ -17,4 +17,11 @@ public class EjemplaresController {
         model.addAttribute("ejemplares", servEjemplar.verTodos());
         return "listado_ejemplares";
     }
+	
+	@GetMapping("/gestion_ejemplares")
+	public String gestionEjemplares() {
+	    return "gestion_ejemplares";
+	}
+
 }
+

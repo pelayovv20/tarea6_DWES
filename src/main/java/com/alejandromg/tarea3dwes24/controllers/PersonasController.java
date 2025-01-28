@@ -21,4 +21,11 @@ public class PersonasController {
         return "listado_personas";
     }
 	
+
+	@GetMapping("/gestion_personas")
+	public String gestionPersonas() {
+		return "gestion_personas";
+	    }
+
+	
 }

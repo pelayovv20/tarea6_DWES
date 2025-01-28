@@ -19,6 +19,10 @@ public class MensajesController {
         return "listado_mensajes";
     }
 	
+	@GetMapping("/gestion_mensajes")
+	public String gestionMensajes() {
+	    return "gestion_mensajes";
+	}
 	
 	
 }
