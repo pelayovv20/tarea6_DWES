@@ -1,28 +1,31 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
+
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErroresController{
+public class ErroresController implements ErrorController {
 
-    @GetMapping("/error404")
-    public String manejar404() {
-        return "error-404";
-    }
-    
-    @GetMapping("/error400")
-    public String manejar400() {
-        return "error-400";
-    }
-    @GetMapping("/error403")
-    public String manejar403() {
-        return "error-403";
-    }
-    
-    @GetMapping("/error500")
-    public String manejar500() {
-        return "error-500";
-    }
-
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request) {
+    	Object status = request.getAttribute("javax.servlet.error.status_code");
+        if (status != null) {
+            int statusCode = Integer.parseInt(status.toString());
+            switch (statusCode) {
+                case 404:
+                    return "error-404";
+                case 400:
+                    return "error-400";
+                case 403:
+                    return "error-403";
+                case 500:
+                    return "error-500";
+            }
+        }
+        return "error";
+}
 }

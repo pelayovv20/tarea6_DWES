@@ -81,12 +81,12 @@ public class ViveroController {
 	 }
 	 
 	 @GetMapping("/admin")
-	 public String vistaAdmin() {
+	 public String admin() {
 	     return "menuAdmin";
 	 }
 
 	 @GetMapping("/personal")
-	 public String vistaPersonal() {
+	 public String personal() {
 	     return "menuPersonal";
 	 }
 
