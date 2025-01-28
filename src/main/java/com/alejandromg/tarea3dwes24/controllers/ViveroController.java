@@ -60,9 +60,9 @@ public class ViveroController {
 	             }
 	             controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
 	             if (perfil == PerfilUsuario.ADMIN) {
-	                 return "redirect:/menuAdmin";
+	                 return "/menuAdmin";
 	             } else {
-	                 return "redirect:/menuPersonal";
+	                 return "/menuPersonal";
 	             }
 	         } else {
 	             model.addAttribute("error", "Usuario o contraseña incorrecto");
@@ -77,7 +77,7 @@ public class ViveroController {
 	 @GetMapping("/logout")
 	 public String cerrarSesion() {
 	     controlador.cerrarSesion();
-	     return "redirect:/login";
+	     return "/invitado";
 	 }
 	 
 	 @GetMapping("/admin")

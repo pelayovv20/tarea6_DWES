@@ -16,7 +16,7 @@
     </header>
 <main class="container mt-5">
     <h1 class="text-center mb-4">Listado de Plantas</h1>
-    <table class="table table-bordered table-striped text-center">
+    <table class="table table-responsive table-bordered ">
         <thead class="table-dark">
             <tr>
                 <th scope="col" style="width: 20%;">Código</th>
@@ -26,9 +26,9 @@
         </thead>
         <tbody>
             <tr th:each="planta : ${plantas}">
-                <td th:text="${planta.codigo}"></td>
-                <td th:text="${planta.nombreComun}"></td>
-                <td th:text="${planta.nombreCientifico}"></td>
+                <td style="text-align:left" th:text="${planta.codigo}"></td>
+                <td style="text-align:left" th:text="${planta.nombreComun}"></td>
+                <td style="text-align:left" th:text="${planta.nombreCientifico}"></td>
             </tr>
         </tbody>
     </table>
