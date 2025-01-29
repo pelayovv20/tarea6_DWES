@@ -65,6 +65,7 @@ public class ViveroController {
 	             if (perfil == PerfilUsuario.ADMIN) {
 	            	 
 	                 return "/menuAdmin";
+	                 
 	             } else  {
 	                 return "/menuPersonal";
 	             }
@@ -72,6 +73,7 @@ public class ViveroController {
 	             model.addAttribute("error", "Usuario o contraseña incorrecto");
 	             return "login";
 	         }
+	         
 	         
 	     } catch (Exception e) {
 	         model.addAttribute("error", "No se ha podido iniciar sesión: " + e.getMessage());
@@ -92,9 +94,12 @@ public class ViveroController {
 
 	 @GetMapping("/personal")
 	 public String personal(Model model) {
-		    String usuarioAutenticado = controlador.getUsuarioAutenticado(); 
-		    model.addAttribute("controlador", controlador); // 
-		    model.addAttribute("usuarioAutenticado", usuarioAutenticado); 
+		 System.out.println("USUARIO EN SESIÓN: " + controlador.getUsuarioAutenticado()); // <-- Debug
+		    if (controlador.getUsuarioAutenticado() != null) {
+		        model.addAttribute("usuarioAutenticado", controlador.getUsuarioAutenticado());
+		    } else {
+		        model.addAttribute("usuarioAutenticado", "Usuario no autenticado");
+		    }
 		    return "menuPersonal";
 		}
 	 
