@@ -19,5 +19,24 @@
         <a th:href="@{/menu_modificar_plantas}" class="btn btn-primary">MODIFICAR PLANTA</a>
         <a th:href="@{/admin}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER </a>
     </main>
+    <div class="container mt-3">
+    <div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
+        <span th:text="${mensaje}"></span>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+    <script>
+    setTimeout(function() {
+        let alertMessages = document.querySelectorAll('.alert');
+        alertMessages.forEach(function(alert) {
+            alert.style.transition = "opacity 0.5s ease-out";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 3000);
+</script>
+</div>
 </body>
 </html>
