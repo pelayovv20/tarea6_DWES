@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2025 a las 12:55:23
+-- Tiempo de generación: 29-01-2025 a las 12:07:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,7 +41,8 @@ CREATE TABLE `credenciales` (
 --
 
 INSERT INTO `credenciales` (`id`, `password`, `usuario`, `id_persona`) VALUES
-(1, 'admin', 'admin', 0);
+(1, 'admin', 'admin', 0),
+(2, 'alejandromg73.', 'Alejandro', NULL);
 
 -- --------------------------------------------------------
 
@@ -86,7 +87,8 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `email`, `nombre`) VALUES
-(0, 'admin@admin.es', 'admin');
+(0, 'admin@admin.es', 'admin'),
+(2, 'alejandromg73@educastur.es', 'Alejandro');
 
 -- --------------------------------------------------------
 
@@ -109,7 +111,12 @@ INSERT INTO `plantas` (`id`, `codigo`, `nombre_cientifico`, `nombre_comun`) VALU
 (1, 'ROSA', 'Rosae', 'Rosa'),
 (2, 'HIEDRA', 'Hiedrus', 'Hiedra'),
 (3, 'TULIPAN', 'Tulipa', 'Tulipán'),
-(4, 'ROMERO', 'Salvia rosmarinus', 'Romero');
+(4, 'ROMERO', 'Salvia rosmarinus', 'Romero'),
+(5, 'LIRIO', 'Lilium', 'Lirio'),
+(6, 'ALCORNOQUE', 'Quercus suber', 'Alcornoque'),
+(7, 'LAVANDA', 'Lavandula', 'Lavanda'),
+(8, 'JUNQUILLO', 'Narcissus jonquilla', 'Junquillo'),
+(9, 'MARGARITA', 'Bellis Perennis', 'Margarita');
 
 --
 -- Índices para tablas volcadas
@@ -160,7 +167,7 @@ ALTER TABLE `plantas`
 -- AUTO_INCREMENT de la tabla `credenciales`
 --
 ALTER TABLE `credenciales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `ejemplares`
@@ -178,13 +185,13 @@ ALTER TABLE `mensajes`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `plantas`
 --
 ALTER TABLE `plantas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas

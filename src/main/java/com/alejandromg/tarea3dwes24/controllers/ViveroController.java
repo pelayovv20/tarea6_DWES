@@ -15,6 +15,8 @@ import com.alejandromg.tarea3dwes24.servicios.PerfilUsuario;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ViveroController {
 	
@@ -47,6 +49,7 @@ public class ViveroController {
 	 public String iniciarSesion(@ModelAttribute Credenciales credenciales, Model model) {
 	     String usuario = credenciales.getUsuario();
 	     String password = credenciales.getPassword();
+	     
 	     try {
 	         boolean autenticar = servCred.autenticar(usuario, password);
 	         if (autenticar) {
@@ -60,14 +63,16 @@ public class ViveroController {
 	             }
 	             controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
 	             if (perfil == PerfilUsuario.ADMIN) {
+	            	 
 	                 return "/menuAdmin";
-	             } else {
+	             } else  {
 	                 return "/menuPersonal";
 	             }
 	         } else {
 	             model.addAttribute("error", "Usuario o contraseña incorrecto");
 	             return "login";
 	         }
+	         
 	     } catch (Exception e) {
 	         model.addAttribute("error", "No se ha podido iniciar sesión: " + e.getMessage());
 	         return "login";
@@ -86,8 +91,52 @@ public class ViveroController {
 	 }
 
 	 @GetMapping("/personal")
-	 public String personal() {
-	     return "menuPersonal";
+	 public String personal(Model model) {
+		    String usuarioAutenticado = controlador.getUsuarioAutenticado(); 
+		    model.addAttribute("controlador", controlador); // 
+		    model.addAttribute("usuarioAutenticado", usuarioAutenticado); 
+		    return "menuPersonal";
+		}
+	 
+	 @GetMapping("/volver")
+	 public String volver(HttpSession session) {
+		 String pagina = (String) session.getAttribute("pagina");
+		 
+		 
+		 if ("admin".equalsIgnoreCase(pagina)) {
+			 return "/menuAdmin";
+		 }else if ("personal".equalsIgnoreCase(pagina)) {
+			 return "/menuPersonal";
+		 }else {
+			 return "/error-400";
+		 }
 	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 }

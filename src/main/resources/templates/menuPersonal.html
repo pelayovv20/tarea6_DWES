@@ -9,16 +9,15 @@
 </head>
 <body>
     <header>
-        <img src="/imagenes/imagenFlores.jpg" alt="Vivero">
-        <!-- Saludo dinámico para el usuario del personal -->
-        <h1 th:text="'Hola, ' + ${controlador.usuarioAutenticado} + ' (Personal del vivero)'"></h1>
+        <img src="/imagenFlores.jpg" alt="Vivero">
+        <h1 th:text="'Hola, ' + ${usuarioAutenticado} + ' (Personal del vivero)'"></h1>
     </header>
 
     <main class="container mt-4 text-center">
         <a th:href="@{/listado_plantas}" class="btn btn-primary mb-2">LISTADO DE PLANTAS</a><br>
         <a th:href="@{/gestion_ejemplares}" class="btn btn-primary mb-2">GESTIÓN DE EJEMPLARES</a><br>
         <a th:href="@{/gestion_mensajes}" class="btn btn-primary mb-2">GESTIÓN DE MENSAJES</a><br>
-        <a th:href="@{/logout}" class="btn btn-danger mt-4" id="salir_cerrarsesion">CERRAR SESIÓN</a>
+        <a th:href="@{/logout}" class="btn btn-primary" id="salir_cerrarsesion">CERRAR SESIÓN</a>
     </main>
 </body>
 </html>
