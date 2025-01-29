@@ -15,7 +15,7 @@ public class PersonasController {
 	@Autowired
 	private ServiciosCredenciales servCredenciales;
 	
-	@GetMapping("/personas")
+	@GetMapping("/listado_personas")
     public String listarPersonas(Model model) {
         model.addAttribute("personas", servPersona.verTodos());
         return "listado_personas";
@@ -26,6 +26,7 @@ public class PersonasController {
 	public String gestionPersonas() {
 		return "gestion_personas";
 	    }
+	
 
 	
 }

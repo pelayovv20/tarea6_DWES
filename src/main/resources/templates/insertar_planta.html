@@ -1,35 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El vivero de Pelayo y Alejandro</title>
+    <title>Insertar planta</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="estilos/estilos.css">
+    <link rel="stylesheet" href="/estilos.css">
 </head>
 <body>
     <header>
-        <img src="imagenes/imagenFlores.jpg" alt="Vivero">
+        <img src="imagenFlores.jpg" alt="Vivero">
     </header>
 
-    <main>
-        <h1>Insertar nueva planta</h1>
+    <main class="container mt-4">
+        <h1 class="text-center mb-4">Insertar una nueva planta</h1>
 
-        <form>
-           <label for="codigo">CÓDIGO</label>
-           <input type="text" id="codigo">
-           <br>
-           <label for="nombre_comun">NOMBRE COMÚN</label>
-           <input type="text" id="nombre_comun">
-           <br>
-           <label for="nombre_cientifico">NOMBRE CIENTÍFICO</label>
-           <input type="text" id="nombre_cientifico">
-            <br>
-           <input type="submit" class="btn btn-primary" value="INSERTAR">
-           
+        <form th:action="@{/insertar_planta}" method="post" class="text-center">
+            <div class="mb-3">
+                <label for="codigo" class="form-label">CÓDIGO</label>
+                <input type="text" id="codigo" name="codigo" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="nombre_comun" class="form-label">NOMBRE COMÚN</label>
+                <input type="text" id="nombre_comun" name="nombreComun" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="nombre_cientifico" class="form-label">NOMBRE CIENTÍFICO</label>
+                <input type="text" id="nombre_cientifico" name="nombreCientifico" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">INSERTAR</button>
         </form>
-        <a href="gestion_plantas.html" class="btn btn-primary" id="salir_cerrarsesion">VOLVER AL MENÚ DE PLANTAS</a>
+        <div class="text-center mt-4">
+            <a th:href="@{/gestion_plantas}" class="btn btn-secondary">VOLVER AL MENÚ DE PLANTAS</a>
+        </div>
     </main>
-    
 </body>
 </html>
