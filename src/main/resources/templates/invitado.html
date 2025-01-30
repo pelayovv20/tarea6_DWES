@@ -12,16 +12,31 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
-        <h1>Hola invitado</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 id="holainvitado">Hola invitado, bienvenido al vivero</h1>
+            <a th:href="@{/login}" class="btn btn-primary">Iniciar sesión</a>
+        </div>
     </header>
-
-    <main>
-        <h1>Bienvenido al vivero</h1>
-        <a th:href="@{/login}" class="btn btn-primary">INICIAR SESIÓN</a>
-        <a th:href="@{/listado_plantas}" class="btn btn-primary">LISTADO DE PLANTAS</a>
-        <a th:href="@{/salir}" class="btn btn-primary" id="salir_cerrarsesion">SALIR</a>
-    </main>
-    
-
+    <main class="container d-flex flex-column align-items-center mt-5">
+    <h1 class="text-center mb-4">Listado de plantas</h1>
+    <div class="table-responsive ">
+    <table class="table table-bordered table-striped ">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col"  style="width: 20%;">Código</th>
+                <th scope="col"  style="width: 40%;">Nombre común</th>
+                <th scope="col"  style="width: 40%;">Nombre científico</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="planta : ${plantas}">
+                <td  th:text="${planta.codigo}"></td>
+                <td  th:text="${planta.nombreComun}"></td>
+                <td  th:text="${planta.nombreCientifico}"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</main>
 </body>
 </html>

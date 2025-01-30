@@ -14,6 +14,12 @@
 
     <main class="container mt-5">
         <h1 class="text-center mb-4">Modificar nombre científico</h1>
+        <div th:if="${mensaje}" class="alert alert-success text-center" id="mensaje">
+            <span th:text="${mensaje}"></span>
+        </div>
+        <div th:if="${error}" class="alert alert-danger text-center" id="mensaje">
+            <span th:text="${error}"></span>
+        </div>
 
         <h2>Listado de plantas</h2>
         <table class="table table-striped table-hover mt-4">
@@ -49,5 +55,14 @@
             <a th:href="@{/menu_modificar_plantas}" class="btn btn-secondary">Volver al menú de modificación</a>
         </div>
     </main>
+
+    <script>
+        setTimeout(function() {
+            let mensaje = document.getElementById('mensaje');
+            if (mensaje) {
+                mensaje.style.display = 'none';
+            }
+        }, 3000);
+    </script>
 </body>
 </html>

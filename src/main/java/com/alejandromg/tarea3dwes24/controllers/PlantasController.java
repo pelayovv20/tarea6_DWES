@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alejandromg.tarea3dwes24.modelo.Planta;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
@@ -54,8 +55,11 @@ public class PlantasController {
 	        }
 	        return "/insertar_planta";
 	    }
+	    
 	    @PostMapping("/modificar_nombre_comun")
-	    public String modificarNombreComun(@RequestParam("codigo") String codigo, @RequestParam("nombreComun") String nuevoNombreComun, Model model) {
+	    public String modificarNombreComun(@RequestParam("codigo") String codigo, 
+	                                      @RequestParam("nombreComun") String nuevoNombreComun, 
+	                                      Model model) {
 	        try {
 	            servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
 	            model.addAttribute("mensaje", "Nombre común modificado");
@@ -66,8 +70,11 @@ public class PlantasController {
 	        return "modificar_nombreComun_planta";
 	    }
 
+
 	    @PostMapping("/modificar_nombre_cientifico")
-	    public String modificarNombreCientifico(@RequestParam("codigo") String codigo,@RequestParam("nombreCientifico") String nuevoNombreCientifico,Model model) {
+	    public String modificarNombreCientifico(@RequestParam("codigo") String codigo, 
+	                                            @RequestParam("nombreCientifico") String nuevoNombreCientifico, 
+	                                            Model model) {
 	        try {
 	            servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
 	            model.addAttribute("mensaje", "Nombre científico modificado");
@@ -77,5 +84,4 @@ public class PlantasController {
 	        model.addAttribute("plantas", servPlanta.verTodas());
 	        return "modificar_nombreCientifico_planta";
 	    }
-
 }
