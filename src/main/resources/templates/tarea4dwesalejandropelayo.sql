@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2025 a las 12:07:06
+-- Tiempo de generación: 30-01-2025 a las 12:42:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tarea4dwesalejandropelayo`
 --
-CREATE DATABASE IF NOT EXISTS `tarea4dwesalejandropelayo` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `tarea4dwesalejandropelayo`;
 
 -- --------------------------------------------------------
 
@@ -42,7 +40,8 @@ CREATE TABLE `credenciales` (
 
 INSERT INTO `credenciales` (`id`, `password`, `usuario`, `id_persona`) VALUES
 (1, 'admin', 'admin', 0),
-(2, 'alejandromg73.', 'Alejandro', NULL);
+(3, 'pelayovv20.', 'pelayovv20', 3),
+(4, 'alejandromg73.', 'alejandromg73', 4);
 
 -- --------------------------------------------------------
 
@@ -88,7 +87,8 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`id`, `email`, `nombre`) VALUES
 (0, 'admin@admin.es', 'admin'),
-(2, 'alejandromg73@educastur.es', 'Alejandro');
+(3, 'pelayovv20@educastur.es', 'pelayo'),
+(4, 'alejandromg73@educastur.es', 'alejandro');
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ ALTER TABLE `plantas`
 -- AUTO_INCREMENT de la tabla `credenciales`
 --
 ALTER TABLE `credenciales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `ejemplares`
@@ -185,7 +185,7 @@ ALTER TABLE `mensajes`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `plantas`

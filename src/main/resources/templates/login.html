@@ -28,5 +28,18 @@
         <a th:href="@{/}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 	</div>
     </main>
+    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+    <script>
+    setTimeout(function() {
+        let alertMessages = document.querySelectorAll('.alert');
+        alertMessages.forEach(function(alert) {
+            alert.style.transition = "opacity 0.5s ease-out";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 3000);
+</script>
 </body>
 </html>

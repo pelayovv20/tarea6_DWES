@@ -56,7 +56,7 @@ public class PersonasController {
             servCredenciales.insertar(usuario, password, persona.getId());
             model.addAttribute("mensaje", "Persona y sus credenciales insertadas");
         } catch (Exception e) {
-            model.addAttribute("error", "Error al insertar persona: " + e.getMessage());
+            model.addAttribute("error", "Error al insertar la persona");
         }
 
         return "redirect:/gestion_personas";

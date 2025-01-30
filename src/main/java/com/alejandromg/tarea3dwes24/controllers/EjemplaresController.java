@@ -16,10 +16,8 @@ public class EjemplaresController {
 	@GetMapping("/ejemplares")
 	public String listarEjemplares(@RequestParam(required = false) String codigoPlanta, Model model) {
 	    if (codigoPlanta != null && !codigoPlanta.isEmpty()) {
-	        // Lógica para obtener los ejemplares según el código de planta
 	        model.addAttribute("ejemplares", servEjemplar.ejemplaresPorTipoPlanta(codigoPlanta));
 	    } else {
-	        // Si no se especifica un código de planta, se muestran todos los ejemplares
 	        model.addAttribute("ejemplares", servEjemplar.verTodos());
 	    }
 	    return "listado_ejemplares";

@@ -70,13 +70,13 @@ public class ViveroController {
 	                 return "/menuPersonal";
 	             }
 	         } else {
-	             model.addAttribute("error", "Usuario o contraseña incorrecto");
+	             model.addAttribute("error", "Usuario o contraseña incorrectos");
 	             return "login";
 	         }
 	         
 	         
 	     } catch (Exception e) {
-	         model.addAttribute("error", "No se ha podido iniciar sesión: " + e.getMessage());
+	         model.addAttribute("error", "No se ha podido iniciar sesión");
 	         return "login";
 	     }
 	 }

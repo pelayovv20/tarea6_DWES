@@ -42,12 +42,17 @@ public class PlantasController {
 	    public String insertarPlanta(@RequestParam("codigo") String codigo,@RequestParam("nombreComun") String nombreComun,@RequestParam("nombreCientifico") String nombreCientifico,Model model) {
 	        try {
 	            Planta p = new Planta(codigo, nombreComun, nombreCientifico);
-	            servPlanta.insertar(p);
-	            model.addAttribute("mensaje", "Planta insertada");
+	            if(servPlanta.validarPlanta(p)) {
+	            	model.addAttribute("mensaje", "Planta insertada");
+	            	 servPlanta.insertar(p);
+	            }else {
+	            	model.addAttribute("error", "Error al insertar la planta");
+	            }
+	            
 	        } catch (Exception e) {
-	            model.addAttribute("error", "Error al insertar la planta: " + e.getMessage());
+	            model.addAttribute("error", "Error al insertar la planta");
 	        }
-	        return "/gestion_plantas";
+	        return "/insertar_planta";
 	    }
 	    @PostMapping("/modificar_nombre_comun")
 	    public String modificarNombreComun(@RequestParam("codigo") String codigo, @RequestParam("nombreComun") String nuevoNombreComun, Model model) {
@@ -55,7 +60,7 @@ public class PlantasController {
 	            servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
 	            model.addAttribute("mensaje", "Nombre común modificado");
 	        } catch (Exception e) {
-	            model.addAttribute("error", "Error al modificar el nombre común: " + e.getMessage());
+	            model.addAttribute("error", "Error al modificar el nombre común");
 	        }
 	        model.addAttribute("plantas", servPlanta.verTodas());
 	        return "modificar_nombreComun_planta";
@@ -67,7 +72,7 @@ public class PlantasController {
 	            servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
 	            model.addAttribute("mensaje", "Nombre científico modificado");
 	        } catch (Exception e) {
-	            model.addAttribute("error", "Error al modificar el nombre científico: " + e.getMessage());
+	            model.addAttribute("error", "Error al modificar el nombre científico");
 	        }
 	        model.addAttribute("plantas", servPlanta.verTodas());
 	        return "modificar_nombreCientifico_planta";

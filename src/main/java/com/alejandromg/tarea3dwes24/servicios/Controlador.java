@@ -9,9 +9,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 //Esta clase Controlador se encarga del manejo de la sesión y de los usuarios autenticados en el programa
 
-//@Service
-@Component // En lugar de @Service
-@SessionScope // Hace que la instancia dure toda la sesión del usuario
+@Service
 public class Controlador {
 	private Long idUsuario;
     private String usuarioAutenticado;
