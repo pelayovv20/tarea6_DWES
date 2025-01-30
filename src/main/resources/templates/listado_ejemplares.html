@@ -31,14 +31,14 @@
 </tr>
 </tbody>
 </table>
-</main>
+
 <form th:action="@{/ejemplares}" method="get">
     <label for="codigo_planta">CÓDIGO DE PLANTA</label>
     <br>
     <input type="text" id="codigo_planta" name="codigoPlanta" th:value="${codigoPlanta}">
     <input type="submit" value="LISTADO DE EJEMPLARES">
 </form>
-<main>
+
     <h1>Listado de ejemplares de la planta _</h1>
     <table class="table table-striped table-hover mt-4">
     <thead>
@@ -56,8 +56,8 @@
     </table>
     </main>
 
+<a th:href="@{/gestion_ejemplares}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>>
 
-<a th:href="@{/gestion_ejemplares}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 
 
 </body>

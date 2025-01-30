@@ -48,18 +48,32 @@ public class PersonasController {
     @PostMapping("/insertar_persona")
     public String insertarPersona(@ModelAttribute Persona persona, @RequestParam("usuario") String usuario, @RequestParam("password") String password, Model model) {
         try {
-            servPersona.insertar(persona);
+           
             Credenciales credenciales = new Credenciales();
             credenciales.setUsuario(usuario);
             credenciales.setPassword(password);
             credenciales.setPersona(persona); 
-            servCredenciales.insertar(usuario, password, persona.getId());
-            model.addAttribute("mensaje", "Persona y sus credenciales insertadas");
+            if(servPersona.validarPersona(persona)) {
+            	if (servCredenciales.usuarioExistente(usuario)) {
+            		model.addAttribute("error", "El nombre de usuario ya existe, Por favor introduce otro");
+            	}else if (servCredenciales.validarContraseña(password)) {
+            		servPersona.insertar(persona);
+            		servCredenciales.insertar(usuario, password, persona.getId());
+            		 model.addAttribute("mensaje", "Persona y sus credenciales insertadas");
+            	}else {
+            		model.addAttribute("error", "Contraseña incorrecta. Por favor introduce una contraseña válida");
+            	}
+            	 
+            }else {
+            	model.addAttribute("error", "Error al insertar la persona");
+            }
+            
+           
         } catch (Exception e) {
             model.addAttribute("error", "Error al insertar la persona");
         }
 
-        return "redirect:/gestion_personas";
+        return "insertar_persona";
     }
 
 }

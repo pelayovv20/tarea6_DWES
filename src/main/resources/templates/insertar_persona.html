@@ -40,6 +40,9 @@
 <a th:href="@{/gestion_personas}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER AL MENÚ DE PERSONAS</a>
 
     </main>
+    <div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
+        <span th:text="${mensaje}"></span>
+    </div>
     <div th:if="${error}" class="alert alert-danger text-center" role="alert">
         <span th:text="${error}"></span>
     </div>

@@ -78,7 +78,7 @@ public class ServiciosPersona {
         if (pers.getEmail().length() < 5 || !pers.getEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$") || pers.getEmail().length() > 40) {
             return false;
         }
-        return true;
+		return true;
     }
     
     /**
