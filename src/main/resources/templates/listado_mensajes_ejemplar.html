@@ -86,7 +86,25 @@
         </table>
 
     </main>
-
+<div th:if="${mensaje}" class="alert alert-success text-center"
+		id="mensaje">
+		<span th:text="${mensaje}"></span>
+	</div>
+	<div th:if="${error}" class="alert alert-danger text-center"
+		id="mensaje">
+		<span th:text="${error}"></span>
+	</div>
+	
+        <script>
+            setTimeout(function() {
+                let alertMessages = document.querySelectorAll('.alert');
+                alertMessages.forEach(function(alert) {
+                    alert.style.transition = "opacity 0.5s ease-out";
+                    alert.style.opacity = "0";
+                    setTimeout(() => alert.remove(), 500);
+                });
+            }, 3000);
+        </script>
 
 <a th:href="@{/}" class="btn btn-primary" id="salir_cerrarsesion" onclick="history.back()">VOLVER AL MENÚ DE LISTADO DE MENSAJES</a>
 

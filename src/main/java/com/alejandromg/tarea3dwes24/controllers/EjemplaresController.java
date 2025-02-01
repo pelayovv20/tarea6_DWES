@@ -50,15 +50,21 @@ public class EjemplaresController {
             } else {
                 Ejemplar nuevoEjemplar = new Ejemplar();
                 nuevoEjemplar.setPlanta(planta);
+                nuevoEjemplar.setNombre(codigoPlanta); 
                 servEjemplar.insertar(nuevoEjemplar);
-                model.addAttribute("mensaje", "Ejemplar insertado");
+                nuevoEjemplar.setNombre(nuevoEjemplar.getPlanta().getCodigo() + "_" + nuevoEjemplar.getId());
+                servEjemplar.cambiarNombre(nuevoEjemplar.getId(), nuevoEjemplar.getNombre());
+                model.addAttribute("mensaje", "Ejemplar insertado correctamente");
             }
         } catch (Exception e) {
-            model.addAttribute("error", "Error al insertar ejemplar");
+            model.addAttribute("error", "Error al insertar ejemplar: " + e.getMessage());
         }
+
         model.addAttribute("plantas", servPlanta.verTodas());
         return "insertar_ejemplar";
     }
+
+
 
 
 }

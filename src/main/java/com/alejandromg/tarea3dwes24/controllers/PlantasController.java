@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alejandromg.tarea3dwes24.modelo.Planta;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
@@ -57,12 +56,12 @@ public class PlantasController {
 	    }
 	    
 	    @PostMapping("/modificar_nombre_comun")
-	    public String modificarNombreComun(@RequestParam("codigo") String codigo, 
-	                                      @RequestParam("nombreComun") String nuevoNombreComun, 
-	                                      Model model) {
+	    public String modificarNombreComun(@RequestParam("codigo") String codigo, @RequestParam("nombreComun") String nuevoNombreComun,Model model) {
 	        try {
-	            servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
-	            model.addAttribute("mensaje", "Nombre común modificado");
+	        	if(servPlanta.validarCodigo(codigo)) {
+	        		model.addAttribute("mensaje", "Nombre común modificado");
+	        		servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
+	        	}
 	        } catch (Exception e) {
 	            model.addAttribute("error", "Error al modificar el nombre común");
 	        }
@@ -72,16 +71,36 @@ public class PlantasController {
 
 
 	    @PostMapping("/modificar_nombre_cientifico")
-	    public String modificarNombreCientifico(@RequestParam("codigo") String codigo, 
-	                                            @RequestParam("nombreCientifico") String nuevoNombreCientifico, 
-	                                            Model model) {
+	    public String modificarNombreCientifico(@RequestParam("codigo") String codigo, @RequestParam("nombreCientifico") String nuevoNombreCientifico, Model model) {
 	        try {
-	            servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
-	            model.addAttribute("mensaje", "Nombre científico modificado");
+	        	if(servPlanta.validarCodigo(codigo)) {
+	        		model.addAttribute("mensaje", "Nombre científico modificado");
+	        		servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
+	        	}
+	            
 	        } catch (Exception e) {
 	            model.addAttribute("error", "Error al modificar el nombre científico");
 	        }
 	        model.addAttribute("plantas", servPlanta.verTodas());
 	        return "modificar_nombreCientifico_planta";
+	    }
+	    
+	    @GetMapping("/modificar_nombre_comun")
+	    public String mostrarFormularioModificarNombreComun(Model model) {
+	        model.addAttribute("plantas", servPlanta.verTodas());
+	        return "modificar_nombreComun_planta";
+	    }
+
+	    @GetMapping("/modificar_nombre_cientifico")
+	    public String mostrarFormularioModificarNombreCientifico(Model model) {
+	        model.addAttribute("plantas", servPlanta.verTodas());
+	        return "modificar_nombreCientifico_planta";
+	    }
+
+	    
+	    @GetMapping("/invitado")
+	    public String mostrarPantallaInvitado(Model model) {
+	        model.addAttribute("plantas", servPlanta.verTodas()); 
+	        return "invitado"; 
 	    }
 }

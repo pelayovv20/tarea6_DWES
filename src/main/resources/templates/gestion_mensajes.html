@@ -14,23 +14,11 @@
 
     <main class="container mt-5 text-center">
         <h1>Gestión de mensajes</h1>
-        <a th:href="@{/menu_listado_mensajes}" class="btn btn-primary">LISTADO DE MENSAJES</a>
         <a th:href="@{/insertar_mensaje}" class="btn btn-primary">INSERTAR NUEVO MENSAJE</a>
-        <a class="btn btn-primary" id="salir_cerrarsesion" href="/volver">VOLVER</a>
-        <div th:if="${error}" class="alert alert-danger text-center" role="alert">
-            <span th:text="${error}"></span>
-        </div>
+        <a th:href="@{/menu_listado_mensajes}" class="btn btn-primary">LISTADO DE MENSAJES</a>
+        <a th:href="@{/admin}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 
-        <script>
-            setTimeout(function() {
-                let alertMessages = document.querySelectorAll('.alert');
-                alertMessages.forEach(function(alert) {
-                    alert.style.transition = "opacity 0.5s ease-out";
-                    alert.style.opacity = "0";
-                    setTimeout(() => alert.remove(), 500);
-                });
-            }, 3000);
-        </script>
     </main>
+    
 </body>
 </html>
