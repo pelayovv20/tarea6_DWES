@@ -1,5 +1,9 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alejandromg.tarea3dwes24.modelo.Planta;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 @Controller
@@ -16,13 +21,23 @@ public class PlantasController {
 	@Autowired
 	private ServiciosPlanta servPlanta;
 	
-	@GetMapping("/listado_plantas")
-    public String listarPlantas(Model model) {
-        model.addAttribute("plantas", servPlanta.verTodas());
-        return "listado_plantas";
-    }
+	@Autowired
+	private ServiciosEjemplar servEjemplar;
 	
-
+	@GetMapping("/listado_plantas")
+	public String listarPlantas(Model model) {
+	    List<Planta> plantas = servPlanta.verTodas();
+	    Map<String, Long> ejemplaresPorPlanta = new HashMap<>();
+	    for (Planta planta : plantas) {
+	        long cantidadEjemplares = servEjemplar.ejemplaresPorPlanta(planta.getCodigo());
+	        ejemplaresPorPlanta.put(planta.getCodigo(), cantidadEjemplares);
+	    }
+	    model.addAttribute("plantas", plantas);
+	    model.addAttribute("ejemplaresPorPlanta", ejemplaresPorPlanta);
+	    return "listado_plantas";
+	}
+	
+	
 	@GetMapping("/gestion_plantas")
 	public String gestionPlantas() {
 	    return "gestion_plantas";

@@ -28,7 +28,7 @@ public class EjemplaresController {
     public String listadoEjemplares(@RequestParam(value = "codigoPlanta", required = false) String codigoPlanta, Model model) {
         model.addAttribute("plantas", servPlanta.verTodas());
         if (servPlanta.validarCodigo(codigoPlanta)) {
-            model.addAttribute("ejemplares", servEjemplar.ejemplaresPorTipoPlanta(codigoPlanta));
+            model.addAttribute("ejemplares", servEjemplar.ejemplaresPorPlanta(codigoPlanta));
             model.addAttribute("codigoPlanta", codigoPlanta);
         }
         return "listado_ejemplares";

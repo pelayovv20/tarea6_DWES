@@ -18,8 +18,9 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Long> {
 	@Query("SELECT COUNT(e) FROM Ejemplar e")
 	long contarEjemplares();
 
-	@Query("SELECT e FROM Ejemplar e WHERE e.planta.codigo = :codigoPlanta")
-	List<Ejemplar> ejemplaresPorTipoPlanta(@Param("codigoPlanta") String codigoPlanta);
+	@Query("SELECT COUNT(e) FROM Ejemplar e WHERE e.planta.codigo = :codigoPlanta")
+	long ejemplaresPorCodigoPlanta(@Param("codigoPlanta") String codigoPlanta);
+
 
 	@Transactional
 	@Modifying

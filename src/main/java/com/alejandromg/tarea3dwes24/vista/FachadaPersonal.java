@@ -113,7 +113,7 @@ public class FachadaPersonal {
                         fachadaAdmin.nuevoEjemplar();
                         break;
                     case 2:
-                        filtrarEjemplaresPorCodigoPlanta();
+                        //filtrarEjemplaresPorCodigoPlanta();
                         break;
                     case 3:
                         fachadaAdmin.verMensajesEjemplar();
@@ -246,41 +246,41 @@ public class FachadaPersonal {
 	 * según el código de la planta
 	 * 
 	 */
-    public void filtrarEjemplaresPorCodigoPlanta() {
-    	in.nextLine();
-    	 ArrayList<Planta> plantas = (ArrayList<Planta>) serviciosPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
-         if (plantas == null || plantas.isEmpty()) {
-             System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
-         }
-         System.out.println("Todas las plantas: ");
-         System.out.println();
-         for (Planta p : plantas) {
-             System.out.println(p);
-             System.out.println();
-         }
-        try {
-            System.out.print("Introduce el código de la planta para ver los ejemplares: ");
-            String codigo = in.nextLine().trim().toUpperCase();
-            boolean existe = serviciosPlanta.codigoExistente(codigo);
-            if (existe) {
-                ArrayList<Ejemplar> ejemplares = serviciosEjemplar.ejemplaresPorTipoPlanta(codigo); //Cargo en un ArrayList todos los ejemplares con ese código de planta 
-                if (ejemplares.isEmpty()) {
-                    System.out.println("No hay ejemplares para la planta con código: " + codigo);
-                } else {
-                    System.out.println("Ejemplares con el código " + codigo + ":");
-                    System.out.println();                   
-                    for (Ejemplar e : ejemplares) {
-                        System.out.println(e);
-                        System.out.println();    
-                    }
-                }
-            } else {
-                System.out.println("No se encontró ninguna planta con el código especificado: " + codigo);
-            }
-        } catch (Exception e) {
-            System.out.println("Error al intentar filtrar los ejemplares: " + e.getMessage());
-        }
-    }
+//    public void filtrarEjemplaresPorCodigoPlanta() {
+//    	in.nextLine();
+//    	 ArrayList<Planta> plantas = (ArrayList<Planta>) serviciosPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+//         if (plantas == null || plantas.isEmpty()) {
+//             System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+//         }
+//         System.out.println("Todas las plantas: ");
+//         System.out.println();
+//         for (Planta p : plantas) {
+//             System.out.println(p);
+//             System.out.println();
+//         }
+//        try {
+//            System.out.print("Introduce el código de la planta para ver los ejemplares: ");
+//            String codigo = in.nextLine().trim().toUpperCase();
+//            boolean existe = serviciosPlanta.codigoExistente(codigo);
+//            if (existe) {
+//                //ArrayList<Ejemplar> ejemplares = serviciosEjemplar.ejemplaresPorPlanta(codigo); //Cargo en un ArrayList todos los ejemplares con ese código de planta 
+//                //if (ejemplares.isEmpty()) {
+//                    System.out.println("No hay ejemplares para la planta con código: " + codigo);
+//                } else {
+//                    System.out.println("Ejemplares con el código " + codigo + ":");
+//                    System.out.println();                   
+//                    for (Ejemplar e : ejemplares) {
+//                        System.out.println(e);
+//                        System.out.println();    
+//                    }
+//                }
+//            } else {
+//                System.out.println("No se encontró ninguna planta con el código especificado: " + codigo);
+//            }
+//        } catch (Exception e) {
+//            System.out.println("Error al intentar filtrar los ejemplares: " + e.getMessage());
+//        }
+//    }
 
     /**
 	 * Método para listar todos los mensajes 

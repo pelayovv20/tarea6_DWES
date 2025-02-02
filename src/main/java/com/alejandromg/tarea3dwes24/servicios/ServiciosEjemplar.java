@@ -1,6 +1,5 @@
 package com.alejandromg.tarea3dwes24.servicios;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -70,19 +69,12 @@ public class ServiciosEjemplar {
     public long contarEjemplares() {
         return ejemplarRepo.contarEjemplares();
     }
-
-    /**
-     * Método para recuperar de la base de datos todos los ejemplares
-     * de un tipo de planta concreto
-     * 
-     * @param codigo El código de la planta
-     * @return una colección de ejemplares
-     */
-    public ArrayList<Ejemplar> ejemplaresPorTipoPlanta(String codigo) {
-    	ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) ejemplarRepo.ejemplaresPorTipoPlanta(codigo);
-        return (ArrayList<Ejemplar>) ejemplares;
+    
+    public long ejemplaresPorPlanta(String codigoPlanta) {
+        return ejemplarRepo.ejemplaresPorCodigoPlanta(codigoPlanta);
     }
 
+    
     /**
      * Método para hacer las validaciones del ejemplar
      * @param Un objeto de tipo ejemplar

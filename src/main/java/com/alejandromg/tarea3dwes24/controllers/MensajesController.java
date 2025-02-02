@@ -1,6 +1,7 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,6 @@ public class MensajesController {
     @Autowired
     private ServiciosEjemplar servEjemplar;
 
-    
     @GetMapping("/gestion_mensajes")
     public String gestionMensajes() {
         return "gestion_mensajes";
@@ -41,27 +41,52 @@ public class MensajesController {
     }
 
     @GetMapping("/listado_mensajes_ejemplar")
-    public String listarMensajesPorEjemplar(@RequestParam("idEjemplar") Long idEjemplar, Model model) {
-        model.addAttribute("mensajes", servMensaje.verMensajesPorEjemplar(idEjemplar));
+    public String listarMensajesPorEjemplar(@RequestParam(name = "idEjemplar", required = false) Long idEjemplar, Model model) {
+        if (idEjemplar != null) {
+            List<Mensaje> mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar);
+            model.addAttribute("mensajes", mensajes);
+            model.addAttribute("idEjemplar", idEjemplar);
+        } else {
+            model.addAttribute("error", "Debes introducir un ID de ejemplar");
+        }
         return "listado_mensajes_ejemplar";
     }
 
     @GetMapping("/listado_mensajes_planta")
-    public String listarMensajesPorPlanta(@RequestParam("codigoPlanta") String codigoPlanta, Model model) {
-        model.addAttribute("mensajes", servMensaje.verMensajesPorCodigoPlanta(codigoPlanta));
+    public String listarMensajesPorPlanta(@RequestParam(name = "codigoPlanta", required = false) String codigoPlanta, Model model) {
+        if (codigoPlanta != null && !codigoPlanta.isEmpty()) {
+            List<Mensaje> mensajes = servMensaje.verMensajesPorCodigoPlanta(codigoPlanta);
+            model.addAttribute("mensajes", mensajes);
+            model.addAttribute("codigoPlanta", codigoPlanta);
+        } else {
+            model.addAttribute("error", "Debes introducir un código de planta");
+        }
         return "listado_mensajes_planta";
     }
 
     @GetMapping("/listado_mensajes_persona")
-    public String listarMensajesPorPersona(@RequestParam("idPersona") Long idPersona, Model model) {
-        model.addAttribute("mensajes", servMensaje.verMensajesPorPersona(idPersona));
+    public String listarMensajesPorPersona(@RequestParam(name = "idPersona", required = false) Long idPersona, Model model) {
+        if (idPersona != null) {
+            List<Mensaje> mensajes = servMensaje.verMensajesPorPersona(idPersona);
+            model.addAttribute("mensajes", mensajes);
+            model.addAttribute("idPersona", idPersona);
+        } else {
+            model.addAttribute("error", "Debes introducir un ID de persona");
+        }
         return "listado_mensajes_persona";
     }
 
     @GetMapping("/listado_mensajes_fechas")
-    public String listarMensajesPorFechas(@RequestParam("fechaInicio") LocalDateTime fechaInicio,
-                                          @RequestParam("fechaFin") LocalDateTime fechaFin, Model model) {
-        model.addAttribute("mensajes", servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin));
+    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) LocalDateTime fechaInicio,
+                                          @RequestParam(name = "fechaFin", required = false) LocalDateTime fechaFin, Model model) {
+        if (fechaInicio != null && fechaFin != null) {
+            List<Mensaje> mensajes = servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
+            model.addAttribute("mensajes", mensajes);
+            model.addAttribute("fechaInicio", fechaInicio);
+            model.addAttribute("fechaFin", fechaFin);
+        } else {
+            model.addAttribute("error", "Debes seleccionar un rango de fechas válido");
+        }
         return "listado_mensajes_fechas";
     }
     
@@ -71,32 +96,26 @@ public class MensajesController {
         return "insertar_mensaje";
     }
 
-    /**
-     * Inserta un mensaje en la base de datos.
-     */
     @PostMapping("/insertar_mensaje")
     public String insertarMensaje(@RequestParam("idEjemplar") Long idEjemplar, 
                                   @RequestParam("contenido") String contenido, 
                                   Model model) {
         try {
             Ejemplar ejemplar = servEjemplar.buscarPorID(idEjemplar);
-            
             if (ejemplar != null) {
                 Mensaje nuevoMensaje = new Mensaje();
                 nuevoMensaje.setEjemplar(ejemplar);
                 nuevoMensaje.setMensaje(contenido);
-                
                 servMensaje.insertar(nuevoMensaje);
-                model.addAttribute("mensaje", "Mensaje insertado correctamente.");
+                model.addAttribute("mensaje", "Mensaje insertado");
             } else {
                 model.addAttribute("error", "No se encontró el ejemplar con ID: " + idEjemplar);
             }
-
         } catch (Exception e) {
-            model.addAttribute("error", "Error al insertar el mensaje.");
+            model.addAttribute("error", "Error al insertar el mensaje");
         }
-
-        model.addAttribute("mensajes", servMensaje.verTodos()); // Refresca la lista de mensajes
+        model.addAttribute("mensajes", servMensaje.verTodos());
         return "insertar_mensaje";
     }
 }
+

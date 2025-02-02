@@ -190,7 +190,7 @@ public class FachadaAdmin {
                         nuevoEjemplar();
                         break;
                     case 2:
-                        fachadaPersonal.filtrarEjemplaresPorCodigoPlanta();
+                       // fachadaPersonal.filtrarEjemplaresPorCodigoPlanta();
                         break;
                     case 3:
                         verMensajesEjemplar();
