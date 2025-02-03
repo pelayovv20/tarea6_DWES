@@ -68,9 +68,9 @@ public class ViveroController {
 	             } else {
 	                 perfil = PerfilUsuario.PERSONAL;
 	             }
+	             controlador.setUsuarioAutenticado(usuario);
 	             controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
 	             if (perfil == PerfilUsuario.ADMIN) {
-	            	 
 	                 return "/menuAdmin";
 	                 
 	             } else  {
@@ -98,17 +98,18 @@ public class ViveroController {
 	 public String admin() {
 	     return "menuAdmin";
 	 }
+	 
+	 @GetMapping("/menuPersonal")
+	 public String mostrarMenuPersonal(Model model) {
+	     String usuario = controlador.getUsuarioAutenticado();
+	     if (usuario == null || usuario.isEmpty()) {
+	         return "redirect:/login";  // Si no hay usuario, redirige al login
+	     }
+	     model.addAttribute("usuarioAutenticado", usuario);  // Asegúrate de pasarlo al modelo para Thymeleaf
+	     return "menuPersonal";  // Muestra la vista
+	 }
 
-	 @GetMapping("/personal")
-	 public String personal(Model model) {
-		 System.out.println("USUARIO EN SESIÓN: " + controlador.getUsuarioAutenticado()); // <-- Debug
-		    if (controlador.getUsuarioAutenticado() != null) {
-		        model.addAttribute("usuarioAutenticado", controlador.getUsuarioAutenticado());
-		    } else {
-		        model.addAttribute("usuarioAutenticado", "Usuario no autenticado");
-		    }
-		    return "menuPersonal";
-		}
+
 	 
 	 @GetMapping("/volver")
 	 public String volver(HttpSession session) {

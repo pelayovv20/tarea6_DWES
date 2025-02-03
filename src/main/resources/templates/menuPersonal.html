@@ -10,8 +10,8 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
-        <h1 th:text="'Hola, ' + ${nombreUsuario} + ' (Personal del vivero)'"></h1>
     </header>
+    <h1 th:text="'Hola, ' + ${usuarioAutenticado} + ' (Personal del vivero)'"></h1>
 
     <main class="container mt-4 text-center">
         <a th:href="@{/listado_plantas}" class="btn btn-primary mb-2">LISTADO DE PLANTAS</a><br>

@@ -2,14 +2,14 @@ package com.alejandromg.tarea3dwes24.servicios;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 //Esta clase Controlador se encarga del manejo de la sesión y de los usuarios autenticados en el programa
 
 @Service
+@SessionAttributes
 public class Controlador {
 	private Long idUsuario;
     private String usuarioAutenticado;
@@ -54,6 +54,7 @@ public class Controlador {
         this.usuarioAutenticado = nombreUsuario;
         this.perfil = perfilUsuario;
         this.fechaInicioSesion = fechaInicioSesion;
+        System.out.println("Iniciado sesión con: " + nombreUsuario);
     }
 
 	/**
