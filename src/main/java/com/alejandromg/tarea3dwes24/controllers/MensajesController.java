@@ -115,7 +115,7 @@ public class MensajesController {
             model.addAttribute("error", "Error al insertar el mensaje");
         }
         model.addAttribute("mensajes", servMensaje.verTodos());
-        return "insertar_mensaje";
+        return "/insertar_mensaje";
     }
 }
 

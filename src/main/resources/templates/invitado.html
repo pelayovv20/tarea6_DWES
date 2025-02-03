@@ -12,11 +12,31 @@
         <img src="/imagenFlores.jpg" alt="Vivero">
         <div class="d-flex justify-content-between align-items-center">
             <h1 id="holainvitado">Hola invitado, bienvenido al vivero</h1>
-            <a th:href="@{/login}" class="btn btn-primary">Iniciar sesión</a>
+            <a th:href="@{/login}" class="btn btn-primary" id="inicio_sesion">Iniciar sesión</a>
         </div>
     </header>
     <main class="container d-flex flex-column align-items-center mt-5">
-        <div th:replace="listado_plantas :: listadoPlantas(${plantas})"></div>
+        <h1 class="text-center mb-4">Listado de plantas</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre común</th>
+                        <th scope="col">Nombre científico</th>
+                        <th scope="col">Número de ejemplares</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="planta : ${plantas}">
+                        <td th:text="${planta.codigo}"></td>
+                        <td th:text="${planta.nombreComun}"></td>
+                        <td th:text="${planta.nombreCientifico}"></td>
+                        <td th:text="${ejemplaresPorPlanta[planta.codigo]}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
 </body>
 </html>

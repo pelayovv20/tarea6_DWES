@@ -14,6 +14,7 @@ import com.alejandromg.tarea3dwes24.servicios.Controlador;
 import com.alejandromg.tarea3dwes24.servicios.PerfilUsuario;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,15 +25,21 @@ public class ViveroController {
 	private ServiciosPersona servPersona;
 	
 	@Autowired
+	private ServiciosPlanta servPlanta;
+	@Autowired
 	private ServiciosCredenciales servCred;
 	
 	@Autowired
 	private Controlador controlador;
 	
 	 @GetMapping("/")
-	 public String invitado() {
+	 public String invitado(Model model) {
+			 model.addAttribute("listadoPlantas",servPlanta.verTodas());
+		 
 	    return "invitado";
 	    }
+	 
+	 
 	 
 	 @GetMapping("/salir")
 	    public String salir() {

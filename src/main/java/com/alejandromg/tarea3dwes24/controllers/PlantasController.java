@@ -24,6 +24,8 @@ public class PlantasController {
 	@Autowired
 	private ServiciosEjemplar servEjemplar;
 	
+	
+	
 	@GetMapping("/listado_plantas")
 	public String listarPlantas(Model model) {
 	    List<Planta> plantas = servPlanta.verTodas();

@@ -43,6 +43,7 @@ main h1{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+
  
 
 .btn-primary:hover{
@@ -57,6 +58,10 @@ main h1{
 .btn-primary:focus {
     outline: none;
     box-shadow: 0 0 0 4px rgba(177, 225, 255, 0.5);
+}
+
+#inicio_sesion{
+	margin-right:80px;
 }
 
 #salir_cerrarsesion:hover{
