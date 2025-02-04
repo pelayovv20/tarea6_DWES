@@ -14,6 +14,24 @@
 
     <main class="container mt-5">
         <h1 class="text-center mb-4">Listado de ejemplares</h1>
+        
+        <h2>Plantas disponibles</h2>
+        <table class="table table-striped table-hover mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nombre común</th>
+                    <th scope="col">Nombre científico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="planta : ${plantas}">
+                    <td th:text="${planta.codigo}"></td>
+                    <td th:text="${planta.nombreComun}"></td>
+                    <td th:text="${planta.nombreCientifico}"></td>
+                </tr>
+            </tbody>
+        </table>
 
         <h2>Selecciona una planta</h2>
         <form th:action="@{/listado_ejemplares}" method="get">
@@ -22,7 +40,8 @@
             <button type="submit" class="btn btn-primary mt-2">Ver ejemplares</button>
         </form>
 
-        <h2 th:if="${codigoPlanta != ''}">Ejemplares de la planta <span th:text="${codigoPlanta}"></span></h2>
+        <h2 th:if="${codigoPlanta != null and codigoPlanta != ''}">Ejemplares de la planta <span class="text-dark" th:text="${codigoPlanta}"></span></h2>
+
         <table class="table table-striped table-hover mt-4">
             <thead class="table-dark">
                 <tr>
@@ -42,5 +61,21 @@
 
         <a th:href="@{/gestion_ejemplares}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
     </main>
+    <div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
+        <span th:text="${mensaje}"></span>
+    </div>
+    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+        <span th:text="${error}"></span>
+    </div>
+    <script>
+    setTimeout(function() {
+        let alertMessages = document.querySelectorAll('.alert');
+        alertMessages.forEach(function(alert) {
+            alert.style.transition = "opacity 0.5s ease-out";
+            alert.style.opacity = "0";
+            setTimeout(() => alert.remove(), 500);
+        });
+    }, 3000);
+</script>
 </body>
 </html>

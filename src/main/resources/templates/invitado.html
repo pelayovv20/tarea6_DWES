@@ -24,7 +24,6 @@
                         <th scope="col">Código</th>
                         <th scope="col">Nombre común</th>
                         <th scope="col">Nombre científico</th>
-                        <th scope="col">Número de ejemplares</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +31,6 @@
                         <td th:text="${planta.codigo}"></td>
                         <td th:text="${planta.nombreComun}"></td>
                         <td th:text="${planta.nombreCientifico}"></td>
-                        <td th:text="${ejemplaresPorPlanta[planta.codigo]}"></td>
                     </tr>
                 </tbody>
             </table>

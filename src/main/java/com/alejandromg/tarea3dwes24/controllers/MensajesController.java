@@ -14,6 +14,7 @@ import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
 import com.alejandromg.tarea3dwes24.modelo.Mensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 @Controller
 public class MensajesController {
@@ -23,6 +24,9 @@ public class MensajesController {
     
     @Autowired
     private ServiciosEjemplar servEjemplar;
+    
+    @Autowired
+    private ServiciosPlanta servPlanta;
 
     @GetMapping("/gestion_mensajes")
     public String gestionMensajes() {
@@ -92,30 +96,39 @@ public class MensajesController {
     
     @GetMapping("/insertar_mensaje")
     public String mostrarFormulario(Model model) {
-        model.addAttribute("ejemplares", servEjemplar.verTodos()); // Lista de ejemplares disponibles
+        model.addAttribute("ejemplares", servEjemplar.verTodos()); 
         return "insertar_mensaje";
     }
 
     @PostMapping("/insertar_mensaje")
-    public String insertarMensaje(@RequestParam("idEjemplar") Long idEjemplar, 
-                                  @RequestParam("contenido") String contenido, 
+    public String insertarMensaje(@RequestParam("idEjemplar") Long idEjemplar,
+                                  @RequestParam("contenido") String contenido,
                                   Model model) {
         try {
-            Ejemplar ejemplar = servEjemplar.buscarPorID(idEjemplar);
-            if (ejemplar != null) {
-                Mensaje nuevoMensaje = new Mensaje();
-                nuevoMensaje.setEjemplar(ejemplar);
-                nuevoMensaje.setMensaje(contenido);
-                servMensaje.insertar(nuevoMensaje);
-                model.addAttribute("mensaje", "Mensaje insertado");
-            } else {
-                model.addAttribute("error", "No se encontró el ejemplar con ID: " + idEjemplar);
+            if (idEjemplar == null || contenido == null || contenido.trim().isEmpty()) {
+                model.addAttribute("error", "Tienes que completar todos los campos para poner el mensaje");
+                return "insertar_mensaje";
             }
+
+            Ejemplar ejemplar = servEjemplar.buscarPorID(idEjemplar);
+            if (ejemplar == null) {
+                model.addAttribute("error", "No se encontró un ejemplar con el ID: " + idEjemplar);
+                return "insertar_mensaje";
+            }
+
+            Mensaje nuevoMensaje = new Mensaje();
+            nuevoMensaje.setEjemplar(ejemplar);
+            nuevoMensaje.setFechaHora(LocalDateTime.now());
+            nuevoMensaje.setMensaje(contenido);
+            servMensaje.insertar(nuevoMensaje);
+
+            model.addAttribute("mensaje", "Mensaje insertado");
         } catch (Exception e) {
             model.addAttribute("error", "Error al insertar el mensaje");
         }
-        model.addAttribute("mensajes", servMensaje.verTodos());
-        return "/insertar_mensaje";
+        model.addAttribute("ejemplares", servEjemplar.verTodos());
+        return "insertar_mensaje";
     }
+
 }
 

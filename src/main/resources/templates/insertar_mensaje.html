@@ -12,83 +12,49 @@
         <img src="/imagenFlores.jpg" alt="Vivero">
     </header>
 
-    <main class="container d-flex flex-column align-items-center mt-5" th:fragment="listadoPlantas(plantas)">
-        <h1 class="text-center mb-4">Listado de plantas</h1>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Código</th>
-                        <th scope="col">Nombre común</th>
-                        <th scope="col">Nombre científico</th>
-                        <th scope="col">Número de ejemplares</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="planta : ${plantas}">
-                        <td th:text="${planta.codigo}"></td>
-                        <td th:text="${planta.nombreComun}"></td>
-                        <td th:text="${planta.nombreCientifico}"></td>
-                        <td th:text="${ejemplaresPorPlanta[planta.codigo]}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <form>
-            <label for="codigo">CÓDIGO DE LA PLANTA</label>
-            <input type="text" id="codigo">
-            <br>
-            <input type="submit" class="btn btn-primary" value="LISTAR EJEMPLARES">
-            
-         </form>
-        <h1>Listado de ejemplares de la planta </h1>
-    <table class="table table-striped table-hover mt-4">
-    <thead class="table-dark">
-    <tr>
-    <th scope="col">Id</th>
-    <th scope="col">Nombre</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="ejemplar : ${ejemplares}">
-    <td th:text="${ejemplar.id}"></td>
-    <td th:text="${ejemplar.nombre}"></td>
-    </tr>
-    </tbody>
-    </table>
-
-    <form>
-        <label for="id">ID DEL EJEMPLAR</label>
-        <input type="text" id="id">
-        <br>
-        <label for="mensaje">Escribe tu mensaje:</label>
-        <br>
-        <textarea name="mensaje" id="mensaje" rows="5" cols="30"></textarea>
-        <br>
-         <button type="submit" class="btn btn-primary">INSERTAR</button>
+    <main class="container mt-5">
+        <h1 class="text-center mb-4">Insertar mensaje</h1>
         
-     </form>
+        <h2 class="text-center mt-4">Selecciona un ejemplar</h2>
+        <form th:action="@{/insertar_mensaje}" method="post">
+            <div class="mb-3">
+                <label for="idEjemplar" class="form-label">Selecciona un ID de ejemplar</label>
+                <select name="idEjemplar" id="idEjemplar" class="form-select" required>
+                    <option value="" selected disabled>-- Selecciona un ejemplar --</option>
+                    <option th:each="ejemplar : ${ejemplares}" th:value="${ejemplar.id}" 
+                            th:text="'ID: ' + ${ejemplar.id} + ' - Nombre: ' + ${ejemplar.nombre}">
+                    </option>
+                </select>
+            </div>
 
-        <a th:href="@{/gestion_mensajes}" class="btn btn-primary" id="salir_cerrarsesion " onclick="history.back()" >VOLVER AL MENÚ DE MENSAJES</a>
+            <div class="mb-3">
+                <label for="mensaje" class="form-label">Escribe tu mensaje:</label>
+                <textarea name="contenido" id="mensaje" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Insertar mensaje</button>
+        </form>
+
+        <div class="text-center mt-4">
+            <a th:href="@{/gestion_mensajes}" class="btn btn-primary">Volver al menú de mensajes</a>
+        </div>
     </main>
-    <div th:if="${mensaje}" class="alert alert-success text-center"
-		id="mensaje">
-		<span th:text="${mensaje}"></span>
-	</div>
-	<div th:if="${error}" class="alert alert-danger text-center" role="alert">
-        <span th:text="${error}"></span>
-    </div>
-	
-        <script>
-            setTimeout(function() {
-                let alertMessages = document.querySelectorAll('.alert');
-                alertMessages.forEach(function(alert) {
-                    alert.style.transition = "opacity 0.5s ease-out";
-                    alert.style.opacity = "0";
-                    setTimeout(() => alert.remove(), 500);
-                });
-            }, 3000);
-        </script>
-    
+    <div th:if="${mensaje}" class="alert alert-success text-center">
+            <span th:text="${mensaje}"></span>
+        </div>
+        <div th:if="${error}" class="alert alert-danger text-center">
+            <span th:text="${error}"></span>
+        </div>
+
+    <script>
+        setTimeout(function() {
+            let alertMessages = document.querySelectorAll('.alert');
+            alertMessages.forEach(function(alert) {
+                alert.style.transition = "opacity 0.5s ease-out";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 3000);
+    </script>
 </body>
 </html>

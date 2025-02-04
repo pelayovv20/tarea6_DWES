@@ -34,18 +34,10 @@ public class ViveroController {
 	
 	 @GetMapping("/")
 	 public String invitado(Model model) {
-			 model.addAttribute("listadoPlantas",servPlanta.verTodas());
-		 
+			 model.addAttribute("plantas",servPlanta.verTodas());
 	    return "invitado";
 	    }
-	 
-	 
-	 
-	 @GetMapping("/salir")
-	    public String salir() {
-	        return "salir"; 
-	    }
-	 
+	
 	 @GetMapping("/login")
 	    public String formularioLogin(Model model) {
 	        model.addAttribute("credenciales", new Credenciales());
@@ -91,7 +83,7 @@ public class ViveroController {
 	 @GetMapping("/logout")
 	 public String cerrarSesion() {
 	     controlador.cerrarSesion();
-	     return "/invitado";
+	     return "invitado";
 	 }
 	 
 	 @GetMapping("/admin")

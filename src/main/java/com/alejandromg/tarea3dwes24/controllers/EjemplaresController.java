@@ -1,5 +1,7 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +26,30 @@ public class EjemplaresController {
     public String gestionEjemplares() {
         return "gestion_ejemplares";
     }
-    @GetMapping("/listado_ejemplares")
-    public String listadoEjemplares(@RequestParam(value = "codigoPlanta", required = false) String codigoPlanta, Model model) {
-        model.addAttribute("plantas", servPlanta.verTodas());
-        if (servPlanta.validarCodigo(codigoPlanta)) {
-            model.addAttribute("ejemplares", servEjemplar.ejemplaresPorPlanta(codigoPlanta));
-            model.addAttribute("codigoPlanta", codigoPlanta);
-        }
-        return "listado_ejemplares";
-    }
+	@GetMapping("/listado_ejemplares")
+	public String listadoEjemplares(@RequestParam(value = "codigoPlanta", required = false) String codigoPlanta, Model model) {
+	    model.addAttribute("plantas", servPlanta.verTodas());
+	    if (codigoPlanta == null || codigoPlanta.isEmpty()) {
+	        model.addAttribute("error", "Introduce un código de planta para ver sus ejemplares");
+	        return "listado_ejemplares";
+	    }
+	    Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);
+	    if (planta == null) {
+	        model.addAttribute("error", "El código de planta introducido no existe en la base de datos");
+	        return "listado_ejemplares";
+	    }
+	    List<Ejemplar> ejemplares = (List<Ejemplar>) servEjemplar.verTodos();
+	    List<Ejemplar> ejemplaresFiltrados = ejemplares.stream().filter(e -> e.getPlanta().getCodigo().equalsIgnoreCase(codigoPlanta)).toList();
+	    if (ejemplaresFiltrados.isEmpty()) {
+	        model.addAttribute("error", "No hay ejemplares guardados para la planta con código: " + codigoPlanta);
+	    } else {
+	        model.addAttribute("ejemplares", ejemplaresFiltrados);
+	    }
+	    model.addAttribute("codigoPlanta", codigoPlanta);
+	    return "listado_ejemplares";
+	}
+
+
 
     @GetMapping("/insertar_ejemplar")
     public String mostrarFormularioInsertar(Model model) {
