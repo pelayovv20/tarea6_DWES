@@ -15,47 +15,56 @@
 </header>
 
 <main>
-<h1>Listado de mensajes por rango de fechas</h1>
+<h1 class="text-center mb-4">Listado de mensajes por rango de fechas</h1>
 
 <form>
     <label for="fecha_1">FECHA DE INICIO</label>
-    <input type="date" id="fecha_1">
+    <input type="date"  class="btn btn-primary" id="fecha_1">
     <br>
     <label for="fecha_2">FECHA DE FIN</label>
-    <input type="date" id="fecha_2">
+    <input type="date" class="btn btn-primary" id="fecha_2">
     <br>
-    <input type="submit" value="LISTAR MENSAJES">
+    <input type="submit"  class="btn btn-primary" value="LISTAR MENSAJES">
 </form>
 
-<h1>Listado de mensajes entre la fecha de inicio y la fecha final</h1>
-<table class="table table-striped table-hover mt-4">
-    <thead>
-    <tr>
-    <th scope="col">Id</th>
-    <th scope="col">Fecha y hora</th>
-    <th scope="col">Mensaje</th>
-    <th scope="col">Persona</th>
-    <th scope="col">Ejemplar</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="mensaje : ${mensajes}">
-    <td th:text="${mensaje.id}"></td>
-    <td th:text="${mensaje.fechayhora}"></td>
-    <td th:text="${mensaje.mensaje}"></td>
-    <td th:text="${persona.id}"></td>
-    <td th:text="${ejemplar.id}"></td>
-    </tr>
-    </tbody>
-    </table>
+<h2>Listado de mensajes entre las fechas <span class="th:text='${ejemplar.nombre}'"></span></h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Fecha y hora</th>
+        <th scope="col">Mensaje</th>
+        <th scope="col">Persona</th>
+        <th scope="col">Ejemplar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mensaje : ${mensajes}">
+        <td th:text="${mensaje.id}"></td>
+        <td th:text="${mensaje.fechaHora}"></td>
+        <td th:text="${mensaje.mensaje}"></td>
+        <td th:text="${mensaje.persona.credenciales.usuario}"></td>
+        <td th:text="${mensaje.ejemplar.nombre}"></td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
 
-
+<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary" id="salir_cerrarsesion" onclick="history.back()">VOLVER AL MENÚ DE LISTADOS DE MENSAJES</a>
 
 
 
 </main>
+<div th:if="${mensaje}" class="alert alert-success text-center"
+		id="mensaje">
+		<span th:text="${mensaje}"></span>
+	</div>
+	<div th:if="${error}" class="alert alert-danger text-center"
+		id="mensaje">
+		<span th:text="${error}"></span>
+	</div>
 
-<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary" id="salir_cerrarsesion" onclick="history.back()">VOLVER AL MENÚ DE LISTADOS DE MENSAJES</a>
 
 
 </body>

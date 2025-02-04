@@ -15,29 +15,32 @@
 </header>
 
 <main>
-<h1>Listado de mensajes</h1>
-<table class="table table-striped table-hover mt-4">
-<thead>
-<tr>
-<th scope="col">Id</th>
-<th scope="col">Fecha y hora</th>
-<th scope="col">Mensaje</th>
-<th scope="col">Persona</th>
-<th scope="col">Ejemplar</th>
-</tr>
-</thead>
-<tbody>
-<tr th:each="mensaje : ${mensajes}">
-<td th:text="${mensaje.id}"></td>
-<td th:text="${mensaje.mensaje}"></td>
-<td th:text="${persona.id}"></td>
-<td th:text="${ejemplar.id}"></td>
-</tr>
-</tbody>
-</table>
-</main>
+<h1>Listado de todos los mensajes</h1>
+	<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Fecha y hora</th>
+        <th scope="col">Mensaje</th>
+        <th scope="col">Persona</th>
+        <th scope="col">Ejemplar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="mensaje : ${mensajes}">
+        <td th:text="${mensaje.id}"></td>
+        <td th:text="${mensaje.fechaHora}"></td>
+        <td th:text="${mensaje.mensaje}"></td>
+        <td th:text="${mensaje.persona.credenciales.usuario}"></td>
+        <td th:text="${mensaje.ejemplar.nombre}"></td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER AL MENÚ DE MENSAJES</a>
 
-<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
+</main>
 
 
 </body>

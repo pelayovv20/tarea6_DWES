@@ -45,7 +45,7 @@ public class EjemplaresController {
 	public String listadoEjemplares(@RequestParam(value = "codigoPlanta", required = false) String codigoPlanta, Model model) {
 	    model.addAttribute("plantas", servPlanta.verTodas());
 	    if (codigoPlanta == null || codigoPlanta.isEmpty()) {
-	        model.addAttribute("error", "Introduce un código de planta para ver sus ejemplares");
+	        
 	        return "listado_ejemplares";
 	    }
 	    Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);

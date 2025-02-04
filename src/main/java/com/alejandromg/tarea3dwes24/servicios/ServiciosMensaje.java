@@ -22,6 +22,7 @@ public class ServiciosMensaje {
      * 
      * @param m Mensaje a insertar
      */
+    
     public void insertar(Mensaje m) {
         mensajeRepo.saveAndFlush(m);
     }

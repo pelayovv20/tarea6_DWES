@@ -3,8 +3,10 @@ package com.alejandromg.tarea3dwes24.controllers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
 import com.alejandromg.tarea3dwes24.modelo.Mensaje;
+import com.alejandromg.tarea3dwes24.modelo.Persona;
+import com.alejandromg.tarea3dwes24.modelo.Planta;
+import com.alejandromg.tarea3dwes24.servicios.Controlador;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 @Controller
@@ -28,6 +35,15 @@ public class MensajesController {
     
     @Autowired
     private ServiciosPlanta servPlanta;
+    
+    @Autowired
+    private ServiciosPersona servPersona;
+    
+    @Autowired
+    private ServiciosCredenciales servCredenciales;
+    
+    @Autowired
+    private Controlador controlador;
 
     @GetMapping("/gestion_mensajes")
     public String gestionMensajes() {
@@ -41,7 +57,15 @@ public class MensajesController {
 
     @GetMapping("/listado_todos_mensajes")
     public String listarTodosLosMensajes(Model model) {
-        model.addAttribute("mensajes", servMensaje.verTodos());
+    	List<Mensaje> mensajes = new ArrayList<>();
+    	mensajes = (List<Mensaje>) servMensaje.verTodos();
+    	if (mensajes.isEmpty()) {
+        	model.addAttribute("error", "No hay mensajes guardados");
+        
+    } else {
+        model.addAttribute("mensajes", mensajes);
+    }
+    
         return "listado_todos_mensajes";
     }
 
@@ -76,41 +100,83 @@ public class MensajesController {
 
     @GetMapping("/listado_mensajes_planta")
     public String listarMensajesPorPlanta(@RequestParam(name = "codigoPlanta", required = false) String codigoPlanta, Model model) {
-        if (codigoPlanta != null && !codigoPlanta.isEmpty()) {
-            List<Mensaje> mensajes = servMensaje.verMensajesPorCodigoPlanta(codigoPlanta);
-            model.addAttribute("mensajes", mensajes);
-            model.addAttribute("codigoPlanta", codigoPlanta);
-        } else {
-            model.addAttribute("error", "Debes introducir un código de planta");
-            
-            
+model.addAttribute("plantas", servPlanta.verTodas());
+    	
+        if (codigoPlanta == null) {
+        	return "listado_mensajes_planta";
         }
+        Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);
+        if (planta==null) {
+        	model.addAttribute("error", "El código de la planta introducida no existe en la base de datos");
+        	return "listado_mensajes_planta";
+        }
+        
+        List<Mensaje> mensajes = new ArrayList<>();
+            mensajes = servMensaje.verMensajesPorCodigoPlanta(codigoPlanta);
+           
+            if (mensajes.isEmpty()) {
+            	model.addAttribute("error", "No hay mensajes guardados para la planta " + planta.getCodigo());
+            
+        } else {
+            model.addAttribute("mensajes", mensajes);
+        }
+        model.addAttribute("codigoPlanta", codigoPlanta);
+        
+        
         return "listado_mensajes_planta";
     }
 
     @GetMapping("/listado_mensajes_persona")
     public String listarMensajesPorPersona(@RequestParam(name = "idPersona", required = false) Long idPersona, Model model) {
-        if (idPersona != null) {
-            List<Mensaje> mensajes = servMensaje.verMensajesPorPersona(idPersona);
-            model.addAttribute("mensajes", mensajes);
-            model.addAttribute("idPersona", idPersona);
-        } else {
-            model.addAttribute("error", "Debes introducir un ID de persona");
+model.addAttribute("personas", servPersona.verTodos());
+    	
+        if (idPersona == null) {
+        	return "listado_mensajes_persona";
         }
+        Optional<Persona> persona = servPersona.buscarPorId(idPersona);
+        if (persona==null) {
+        	model.addAttribute("error", "El id de la persona introducida no existe en la base de datos");
+        	return "listado_mensajes_persona";
+        }
+        
+        List<Mensaje> mensajes = new ArrayList<>();
+            mensajes = servMensaje.verMensajesPorPersona(idPersona);
+           
+            if (mensajes.isEmpty()) {
+            	model.addAttribute("error", "No hay mensajes guardados para la persona " + persona.get().getCredenciales().getUsuario() );
+            
+        } else {
+            model.addAttribute("mensajes", mensajes);
+        }
+        model.addAttribute("idPersona", idPersona);
+        
+        
         return "listado_mensajes_persona";
     }
 
     @GetMapping("/listado_mensajes_fechas")
-    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) LocalDateTime fechaInicio,
-                                          @RequestParam(name = "fechaFin", required = false) LocalDateTime fechaFin, Model model) {
-        if (fechaInicio != null && fechaFin != null) {
-            List<Mensaje> mensajes = servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
-            model.addAttribute("mensajes", mensajes);
-            model.addAttribute("fechaInicio", fechaInicio);
-            model.addAttribute("fechaFin", fechaFin);
-        } else {
-            model.addAttribute("error", "Debes seleccionar un rango de fechas válido");
+    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,
+                                          @RequestParam(name = "fechaFin", required = false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaFin, Model model) {
+
+    	
+        if (fechaInicio == null || fechaFin == null) {
+        	model.addAttribute("error", "El id de la persona introducida no existe en la base de datos");
+        	return "listado_mensajes_fechas";
         }
+        
+        
+        List<Mensaje> mensajes = new ArrayList<>();
+            mensajes = servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
+           
+            if (mensajes.isEmpty()) {
+            	model.addAttribute("error", "No hay mensajes en el rango de fechas seleccionado.");
+            
+        } else {
+            model.addAttribute("mensajes", mensajes);
+        }
+        //model.addAttribute("idPersona", idPersona);
+        
+        
         return "listado_mensajes_fechas";
     }
     
@@ -124,25 +190,25 @@ public class MensajesController {
     public String insertarMensaje(@RequestParam("idEjemplar") Long idEjemplar,
                                   @RequestParam("contenido") String contenido,
                                   Model model) {
-        try {
-            if (idEjemplar == null || contenido == null || contenido.trim().isEmpty()) {
-                model.addAttribute("error", "Tienes que completar todos los campos para poner el mensaje");
-                return "insertar_mensaje";
-            }
-
+        
+            
+            try {
             Ejemplar ejemplar = servEjemplar.buscarPorID(idEjemplar);
             if (ejemplar == null) {
                 model.addAttribute("error", "No se encontró un ejemplar con el ID: " + idEjemplar);
-                return "insertar_mensaje";
-            }
+            }else {
 
             Mensaje nuevoMensaje = new Mensaje();
+            String usuarioAutenticado = controlador.getUsuarioAutenticado();
+            Persona persona = servCredenciales.buscarPersonaPorUsuario(usuarioAutenticado);
             nuevoMensaje.setEjemplar(ejemplar);
             nuevoMensaje.setFechaHora(LocalDateTime.now());
             nuevoMensaje.setMensaje(contenido);
+            nuevoMensaje.setPersona(persona);
             servMensaje.insertar(nuevoMensaje);
 
             model.addAttribute("mensaje", "Mensaje insertado");
+            }
         } catch (Exception e) {
             model.addAttribute("error", "Error al insertar el mensaje");
         }
