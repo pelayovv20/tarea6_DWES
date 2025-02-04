@@ -1,5 +1,6 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
+import com.alejandromg.tarea3dwes24.modelo.Mensaje;
+import com.alejandromg.tarea3dwes24.modelo.Persona;
 import com.alejandromg.tarea3dwes24.modelo.Planta;
+import com.alejandromg.tarea3dwes24.servicios.Controlador;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 @Controller
@@ -21,6 +27,15 @@ public class EjemplaresController {
 	
 	@Autowired
 	private ServiciosPlanta servPlanta;
+	
+	@Autowired
+	private ServiciosCredenciales servCredenciales;
+	
+	@Autowired
+	private ServiciosMensaje servMensaje;
+	
+	@Autowired
+	private Controlador controlador;
 	
 	@GetMapping("/gestion_ejemplares")
     public String gestionEjemplares() {
@@ -71,6 +86,18 @@ public class EjemplaresController {
                 servEjemplar.insertar(nuevoEjemplar);
                 nuevoEjemplar.setNombre(nuevoEjemplar.getPlanta().getCodigo() + "_" + nuevoEjemplar.getId());
                 servEjemplar.cambiarNombre(nuevoEjemplar.getId(), nuevoEjemplar.getNombre());
+                Mensaje m = new Mensaje();
+                String mensajeTexto = "Añadido el ejemplar " + nuevoEjemplar.getNombre();
+	            LocalDateTime fechaHora = LocalDateTime.now();
+	            String usuarioAutenticado = controlador.getUsuarioAutenticado();
+	            Persona persona = servCredenciales.buscarPersonaPorUsuario(usuarioAutenticado);
+	            if (persona == null) {
+	                model.addAttribute("error", "No se ha encontrado la persona");
+	            } else {
+	                m = new Mensaje(fechaHora, mensajeTexto, persona, nuevoEjemplar); //Inserto un mensaje de creación del ejemplar
+	                servMensaje.insertar(m);
+	                System.out.println("Mensaje de creación del ejemplar añadido");
+	            }
                 model.addAttribute("mensaje", "Ejemplar insertado correctamente");
             }
         } catch (Exception e) {

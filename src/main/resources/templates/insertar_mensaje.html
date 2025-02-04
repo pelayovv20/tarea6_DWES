@@ -32,11 +32,11 @@
                 <textarea name="contenido" id="mensaje" class="form-control" rows="5" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Insertar mensaje</button>
+            <button type="submit" class="btn btn-primary">INSERTAR MENSAJE</button>
         </form>
 
         <div class="text-center mt-4">
-            <a th:href="@{/gestion_mensajes}" class="btn btn-primary">Volver al menú de mensajes</a>
+            <a th:href="@{/gestion_mensajes}" class="btn btn-primary" id ="salir_cerrarsesion">VOLVER AL MENÚ DE MENSAJES</a>
         </div>
     </main>
     <div th:if="${mensaje}" class="alert alert-success text-center">

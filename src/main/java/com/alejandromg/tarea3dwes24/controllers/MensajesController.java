@@ -1,6 +1,7 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,15 +47,32 @@ public class MensajesController {
 
     @GetMapping("/listado_mensajes_ejemplar")
     public String listarMensajesPorEjemplar(@RequestParam(name = "idEjemplar", required = false) Long idEjemplar, Model model) {
-        if (idEjemplar != null) {
-            List<Mensaje> mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar);
-            model.addAttribute("mensajes", mensajes);
-            model.addAttribute("idEjemplar", idEjemplar);
-        } else {
-            model.addAttribute("error", "Debes introducir un ID de ejemplar");
+    	model.addAttribute("ejemplares", servEjemplar.verTodos());
+    	
+        if (idEjemplar == null) {
+        	return "listado_mensajes_ejemplar";
         }
+        Ejemplar ejemplar = servEjemplar.buscarPorID(idEjemplar);
+        if (ejemplar==null) {
+        	model.addAttribute("error", "El id del ejemplar introducido no existe en la base de datos");
+        	return "listado_mensajes_ejemplar";
+        }
+        
+        List<Mensaje> mensajes = new ArrayList<>();
+            mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar).stream().filter(m -> m.getEjemplar() != null && idEjemplar.equals(m.getEjemplar().getId())).toList();
+           
+            if (mensajes.isEmpty()) {
+            	model.addAttribute("error", "No hay mensajes guardados para el ejemplar " + ejemplar.getNombre());
+            
+        } else {
+            model.addAttribute("mensajes", mensajes);
+        }
+        model.addAttribute("idEjemplar", idEjemplar);
+        
+        
         return "listado_mensajes_ejemplar";
     }
+
 
     @GetMapping("/listado_mensajes_planta")
     public String listarMensajesPorPlanta(@RequestParam(name = "codigoPlanta", required = false) String codigoPlanta, Model model) {
@@ -64,6 +82,8 @@ public class MensajesController {
             model.addAttribute("codigoPlanta", codigoPlanta);
         } else {
             model.addAttribute("error", "Debes introducir un código de planta");
+            
+            
         }
         return "listado_mensajes_planta";
     }
