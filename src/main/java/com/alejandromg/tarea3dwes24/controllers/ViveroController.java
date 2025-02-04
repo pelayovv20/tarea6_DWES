@@ -57,11 +57,13 @@ public class ViveroController {
 
 	             if ("admin".equalsIgnoreCase(usuario)) {
 	                 perfil = PerfilUsuario.ADMIN;
+	                 
 	             } else {
 	                 perfil = PerfilUsuario.PERSONAL;
 	             }
 	             controlador.setUsuarioAutenticado(usuario);
 	             controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
+	             
 	             if (perfil == PerfilUsuario.ADMIN) {
 	                 return "/menuAdmin";
 	                 
