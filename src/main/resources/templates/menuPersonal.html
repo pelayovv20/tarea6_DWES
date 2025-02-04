@@ -11,7 +11,7 @@
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
     </header>
-    <h1 th:text="'Hola, ' + ${usuarioAutenticado} + ' (Personal del vivero)'"></h1>
+    <h1>Hola, <span class="text-primary" th:text="${usuarioAutenticado}"></span> (Personal del vivero)</h1>
 
     <main class="container mt-4 text-center">
         <a th:href="@{/listado_plantas}" class="btn btn-primary mb-2">LISTADO DE PLANTAS</a><br>

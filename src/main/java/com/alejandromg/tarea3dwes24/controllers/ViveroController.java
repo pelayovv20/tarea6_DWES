@@ -97,10 +97,10 @@ public class ViveroController {
 	 public String mostrarMenuPersonal(Model model) {
 	     String usuario = controlador.getUsuarioAutenticado();
 	     if (usuario == null || usuario.isEmpty()) {
-	         return "redirect:/login";  // Si no hay usuario, redirige al login
+	         return "redirect:/login";
 	     }
-	     model.addAttribute("usuarioAutenticado", usuario);  // Asegúrate de pasarlo al modelo para Thymeleaf
-	     return "menuPersonal";  // Muestra la vista
+	     model.addAttribute("usuarioAutenticado", usuario);
+	     return "menuPersonal";
 	 }
 
 

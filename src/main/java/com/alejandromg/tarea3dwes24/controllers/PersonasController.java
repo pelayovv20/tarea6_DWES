@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alejandromg.tarea3dwes24.modelo.Credenciales;
 import com.alejandromg.tarea3dwes24.modelo.Persona;
+import com.alejandromg.tarea3dwes24.servicios.Controlador;
+import com.alejandromg.tarea3dwes24.servicios.PerfilUsuario;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 
@@ -21,6 +23,9 @@ public class PersonasController {
 	private ServiciosPersona servPersona;
 	@Autowired
 	private ServiciosCredenciales servCredenciales;
+	
+	@Autowired
+	private Controlador controlador;
 
 	@GetMapping("/listado_personas")
 	public String listarPersonas(Model model) {
@@ -37,8 +42,12 @@ public class PersonasController {
 
     @GetMapping("/gestion_personas")
     public String gestionPersonas() {
+    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+    	    return "/acceso_perfiles";
+    	}
         return "gestion_personas";
     }
+    
     @GetMapping("/insertar_persona")
     public String mostrarFormulario(Model model) {
         model.addAttribute("persona", new Persona());

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alejandromg.tarea3dwes24.modelo.Planta;
+import com.alejandromg.tarea3dwes24.servicios.Controlador;
+import com.alejandromg.tarea3dwes24.servicios.PerfilUsuario;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
@@ -23,6 +25,9 @@ public class PlantasController {
 	
 	@Autowired
 	private ServiciosEjemplar servEjemplar;
+	
+	@Autowired
+	private Controlador controlador;
 	
 	
 	
@@ -47,6 +52,9 @@ public class PlantasController {
 	
 	@GetMapping("/menu_modificar_plantas")
 	public String modificarPlanta() {
+		if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+    	    return "/acceso_perfiles";
+    	}
 	    return "menu_modificar_plantas";
 	}
 
@@ -57,7 +65,10 @@ public class PlantasController {
 
 	    @PostMapping("/insertar_planta")
 	    public String insertarPlanta(@RequestParam("codigo") String codigo,@RequestParam("nombreComun") String nombreComun,@RequestParam("nombreCientifico") String nombreCientifico,Model model) {
-	        try {
+	    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+	    	    return "/acceso_perfiles";
+	    	}
+	    	try {
 	            Planta p = new Planta(codigo, nombreComun, nombreCientifico);
 	            if(servPlanta.validarPlanta(p)) {
 	            	model.addAttribute("mensaje", "Planta insertada");
