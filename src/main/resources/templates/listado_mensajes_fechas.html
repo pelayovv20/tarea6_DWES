@@ -17,12 +17,12 @@
 <main>
 <h1 class="text-center mb-4">Listado de mensajes por rango de fechas</h1>
 
-<form>
+<form th:action="@{/listado_mensajes_fechas}" th:object="${mensajes}" method="get">
     <label for="fecha_1">FECHA DE INICIO</label>
-    <input type="date"  class="btn btn-primary" id="fecha_1">
+    <input type="date"  class="btn btn-primary" id="fecha_1" name="fechaInicio">
     <br>
     <label for="fecha_2">FECHA DE FIN</label>
-    <input type="date" class="btn btn-primary" id="fecha_2">
+    <input type="date" class="btn btn-primary" id="fecha_2" name="fechaFin">
     <br>
     <input type="submit"  class="btn btn-primary" value="LISTAR MENSAJES">
 </form>
@@ -50,6 +50,7 @@
         </tbody>
         </table>
         </div>
+        
 
 <a th:href="@{/menu_listado_mensajes}" class="btn btn-primary" id="salir_cerrarsesion" onclick="history.back()">VOLVER AL MENÚ DE LISTADOS DE MENSAJES</a>
 

@@ -1,6 +1,9 @@
 package com.alejandromg.tarea3dwes24.controllers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -155,29 +158,46 @@ model.addAttribute("personas", servPersona.verTodos());
     }
 
     @GetMapping("/listado_mensajes_fechas")
-    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaInicio,
-                                          @RequestParam(name = "fechaFin", required = false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaFin, Model model) {
+    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) String fecha1,
+    									 @RequestParam(name = "fechaFin", required = false) String fecha2, Model model) {
 
-    	
-        if (fechaInicio == null || fechaFin == null) {
-        	model.addAttribute("error", "El id de la persona introducida no existe en la base de datos");
-        	return "listado_mensajes_fechas";
-        }
-        
-        
-        List<Mensaje> mensajes = new ArrayList<>();
-            mensajes = servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
-           
-            if (mensajes.isEmpty()) {
-            	model.addAttribute("error", "No hay mensajes en el rango de fechas seleccionado.");
-            
-        } else {
-            model.addAttribute("mensajes", mensajes);
-        }
-        //model.addAttribute("idPersona", idPersona);
-        
-        
-        return "listado_mensajes_fechas";
+
+    		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    		LocalDateTime fechaInicio = null;
+    		LocalDateTime fechaFin = null;
+
+
+    		if (fecha1 != null && !fecha1.isEmpty()) {
+    			
+    				LocalDate fechaInicioCorrecta = LocalDate.parse(fecha1, formatter);
+    				fechaInicio = fechaInicioCorrecta.atStartOfDay();
+    			
+    		}
+
+    		if (fecha2 != null && !fecha2.isEmpty()) {
+    			
+    				LocalDate fechaFinCorrecta = LocalDate.parse(fecha2, formatter);
+    				fechaFin = fechaFinCorrecta.atStartOfDay();
+    				if (fechaFin.isBefore(fechaInicio)) {
+    					model.addAttribute("error", "La fecha de fin no puede ser anterior a la fecha de inicio");
+    					return "listado_mensajes_fechas";
+    				}
+    			
+    		}
+
+    		if (fechaInicio != null && fechaFin != null) {
+    			List<Mensaje> mensajes = servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
+    			if (mensajes.isEmpty()) {
+    				model.addAttribute("error", "No se encontraron mensajes en el rango de fechas proporcionado");
+    			} else {
+    				model.addAttribute("mensajes", mensajes);
+    			}
+    		} else if (fecha1 != null || fecha2 != null) {
+
+    			model.addAttribute("error", "Ambas fechas son necesarias");
+    		}
+
+    		return "listado_mensajes_fechas";
     }
     
     @GetMapping("/insertar_mensaje")
