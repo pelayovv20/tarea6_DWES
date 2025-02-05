@@ -16,18 +16,17 @@
         <h1>Gestión de ejemplares</h1>
         <a th:href="@{/listado_ejemplares}" class="btn btn-primary">LISTADO DE EJEMPLARES</a>
         <a th:href="@{/insertar_ejemplar}" class="btn btn-primary">INSERTAR NUEVO EJEMPLAR</a>
-        <a  th:href="@{/admin}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
+        <a th:href="@{/menu}" class="btn btn-primary" id="salir_cerrarsesion" onclick="goBack()">VOLVER</a>
     </main>
     
      <script>
         function goBack() {
-          const pagina = sessionStorage.getItem("pagina"); 
-          if (pagina === "admin") {
-            window.location.href = "menuAdmin.html"; 
-          } else if (pagina === "personal") {
-            window.location.href = "menuPersonal.html"; 
-          } 
+            if (document.referrer && document.referrer !== window.location.href) {
+                window.history.back();
+            } else {
+                window.location.href = '/invitado'; 
+            }
         }
-      </script>
+    </script>
 </body>
 </html>

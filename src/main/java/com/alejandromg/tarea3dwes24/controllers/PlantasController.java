@@ -60,14 +60,14 @@ public class PlantasController {
 
 	    @GetMapping("/insertar_planta")
 	    public String mostrarFormularioInsertarPlanta() {
+	    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+	    	    return "/acceso_perfiles";
+	    	}
 	        return "insertar_planta";
 	    }
 
 	    @PostMapping("/insertar_planta")
 	    public String insertarPlanta(@RequestParam("codigo") String codigo,@RequestParam("nombreComun") String nombreComun,@RequestParam("nombreCientifico") String nombreCientifico,Model model) {
-	    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
-	    	    return "/acceso_perfiles";
-	    	}
 	    	try {
 	            Planta p = new Planta(codigo, nombreComun, nombreCientifico);
 	            if(servPlanta.validarPlanta(p)) {
@@ -115,12 +115,18 @@ public class PlantasController {
 	    
 	    @GetMapping("/modificar_nombre_comun")
 	    public String mostrarFormularioModificarNombreComun(Model model) {
+	    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+	    	    return "/acceso_perfiles";
+	    	}
 	        model.addAttribute("plantas", servPlanta.verTodas());
 	        return "modificar_nombreComun_planta";
 	    }
 
 	    @GetMapping("/modificar_nombre_cientifico")
 	    public String mostrarFormularioModificarNombreCientifico(Model model) {
+	    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+	    	    return "/acceso_perfiles";
+	    	}
 	        model.addAttribute("plantas", servPlanta.verTodas());
 	        return "modificar_nombreCientifico_planta";
 	    }

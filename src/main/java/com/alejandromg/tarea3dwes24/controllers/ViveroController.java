@@ -16,8 +16,6 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class ViveroController {
 	
@@ -63,13 +61,8 @@ public class ViveroController {
 	             }
 	             controlador.setUsuarioAutenticado(usuario);
 	             controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
+	             return "menuPrincipal";
 	             
-	             if (perfil == PerfilUsuario.ADMIN) {
-	                 return "/menuAdmin";
-	                 
-	             } else  {
-	                 return "/menuPersonal";
-	             }
 	         } else {
 	             model.addAttribute("error", "Usuario o contraseña incorrectos");
 	             return "login";
@@ -88,62 +81,15 @@ public class ViveroController {
 	     return "invitado";
 	 }
 	 
-	 @GetMapping("/admin")
-	 public String admin() {
-	     return "menuAdmin";
-	 }
-	 
-	 @GetMapping("/menuPersonal")
-	 public String mostrarMenuPersonal(Model model) {
-	     String usuario = controlador.getUsuarioAutenticado();
-	     if (usuario == null || usuario.isEmpty()) {
-	         return "redirect:/login";
-	     }
-	     model.addAttribute("usuarioAutenticado", usuario);
-	     return "menuPersonal";
-	 }
-
-
-	 
-	 @GetMapping("/volver")
-	 public String volver(HttpSession session) {
-		 String pagina = (String) session.getAttribute("pagina");
-		 
-		 
-		 if ("admin".equalsIgnoreCase(pagina)) {
-			 return "/menuAdmin";
-		 }else if ("personal".equalsIgnoreCase(pagina)) {
-			 return "/menuPersonal";
-		 }else {
-			 return "/error-400";
-		 }
-	 }
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	 @GetMapping("/menu")
+	    public String mostrarMenu(Model model) {
+	        String usuario = controlador.getUsuarioAutenticado();
+	        if (usuario == null || usuario.isEmpty()) {
+	            return "redirect:/login";
+	        }
+	        model.addAttribute("usuarioAutenticado", usuario);
+	        model.addAttribute("perfil", controlador.getPerfil());
+	        return "menuPrincipal";
+	    }
 
 }

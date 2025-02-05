@@ -29,6 +29,9 @@ public class PersonasController {
 
 	@GetMapping("/listado_personas")
 	public String listarPersonas(Model model) {
+		if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+    	    return "/acceso_perfiles";
+    	}
 	    List<Persona> personas = (List<Persona>) servPersona.verTodos();
 	    for (Persona persona : personas) {
 	        if (persona.getCredenciales() != null) {
@@ -50,6 +53,9 @@ public class PersonasController {
     
     @GetMapping("/insertar_persona")
     public String mostrarFormulario(Model model) {
+    	if (controlador.getPerfil() == null || controlador.getPerfil() != PerfilUsuario.ADMIN) {
+    	    return "/acceso_perfiles";
+    	}	
         model.addAttribute("persona", new Persona());
         return "insertar_persona";
     }
