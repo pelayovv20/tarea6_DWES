@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@
         <tbody>
         <tr th:each="mensaje : ${mensajes}">
         <td th:text="${mensaje.id}"></td>
-        <td th:text="${mensaje.fechaHora}"></td>
+        <td th:text="${#temporals.format(mensaje.fechaHora, 'dd-MM-yyyy   -     HH:mm:ss')}"></td>
         <td th:text="${mensaje.mensaje}"></td>
         <td th:text="${mensaje.persona.credenciales.usuario}"></td>
         <td th:text="${mensaje.ejemplar.nombre}"></td>

@@ -61,7 +61,8 @@ main h1{
 }
 
 #inicio_sesion{
-	margin-right:80px;
+	margin-right:55px;
+	margin-top: 50px;
 }
 
 #salir_cerrarsesion:hover{
@@ -99,11 +100,9 @@ form{
 }
 
 #holainvitado{
-	font-size: 30px;
-	margin-left: 126px;
+	font-size: 40px;
+	margin-left: 36px;
 }
-
-
 
 
 

@@ -48,7 +48,6 @@ public class ViveroController {
 	 public String iniciarSesion(@ModelAttribute Credenciales credenciales, Model model) {
 	     String usuario = credenciales.getUsuario();
 	     String password = credenciales.getPassword();
-	     
 	     try {
 	         boolean autenticar = servCred.autenticar(usuario, password);
 	         if (autenticar) {
@@ -70,8 +69,6 @@ public class ViveroController {
 	             model.addAttribute("error", "Usuario o contraseña incorrectos");
 	             return "login";
 	         }
-	         
-	         
 	     } catch (Exception e) {
 	         model.addAttribute("error", "No se ha podido iniciar sesión");
 	         return "login";
