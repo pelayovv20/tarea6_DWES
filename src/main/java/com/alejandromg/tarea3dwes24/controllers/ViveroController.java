@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.alejandromg.tarea3dwes24.modelo.Credenciales;
 import com.alejandromg.tarea3dwes24.servicios.Controlador;
@@ -17,6 +18,7 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 @Controller
+@SessionAttributes("usuarioAutenticado")
 public class ViveroController {
 	
 	@Autowired
@@ -61,6 +63,7 @@ public class ViveroController {
 	             }
 	             controlador.setUsuarioAutenticado(usuario);
 	             controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
+	             model.addAttribute("usuarioAutenticado", usuario);
 	             return "menuPrincipal";
 	             
 	         } else {
