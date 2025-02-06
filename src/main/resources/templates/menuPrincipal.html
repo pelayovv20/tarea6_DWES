@@ -10,14 +10,18 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
-        <h1>Hola <span th:text="${usuarioAutenticado}"></span></h1>
     </header>
+     <div  id="cabecera">
+     		<img src="/logoVivero.png" alt="Logo" id="logo-vivero">
+            <a th:href="@{/invitado}" class="btn btn-primary" id="salir_cerrarsesion" onclick="goBack()">CERRAR SESIÓN</a>
+        </div>
+        <h1 class="hola" style="text-align:center">Hola <span th:text="${usuarioAutenticado}"></span></h1>
     <main class="container mt-4 text-center">
         <a th:href="@{/gestion_plantas}" class="btn btn-primary mb-2">GESTIÓN DE PLANTAS</a><br>
         <a th:href="@{/gestion_ejemplares}" class="btn btn-primary mb-2">GESTIÓN DE EJEMPLARES</a><br>
         <a th:href="@{/gestion_mensajes}" class="btn btn-primary mb-2">GESTIÓN DE MENSAJES</a><br>
         <a th:href="@{/gestion_personas}" class="btn btn-primary mb-2">GESTIÓN DE PERSONAS</a><br>
-        <a th:href="@{/invitado}" class="btn btn-primary" id="salir_cerrarsesion" onclick="goBack()">CERRAR SESIÓN</a>
+        
     </main>
     
 </body>

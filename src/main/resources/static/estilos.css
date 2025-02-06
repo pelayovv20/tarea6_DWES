@@ -1,5 +1,12 @@
 body{
-    background-color:rgb(193, 241, 161);
+    background: linear-gradient(to right, #A8E6CF, #DCEDC1);
+    
+}
+header{
+	display:flex;
+	justify-content:center;
+	flex-direction: column;
+	align-items:center;
 }
 
 header img{
@@ -8,18 +15,34 @@ header img{
     display: flex;
 }
 
-header h1{
-    text-align: center;
-    text-transform: uppercase;
-    margin-top: 30px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    letter-spacing: 2px;
+
+
+#cabecera {
+    display: flex;
+    justify-content: space-around; 
+    align-items: center; 
+    gap: 20px; 
+    padding: 20px;
+}
+.hola{
+	text-transform:uppercase;
+}
+
+
+#logo-vivero {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+    width: 200px; 
+    height: 200px;
+    
 }
 
 main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 main h1{
@@ -27,6 +50,25 @@ main h1{
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+
+#formulario_login {
+	padding: 80px;
+	width: 40%;
+	height: 500px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 15px;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+	background: white;
+	padding: 30px;
+	border-radius: 12px;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	row-gap:6px;
 }
 
 .btn-primary{
@@ -60,10 +102,7 @@ main h1{
     box-shadow: 0 0 0 4px rgba(177, 225, 255, 0.5);
 }
 
-#inicio_sesion{
-	margin-right:55px;
-	margin-top: 50px;
-}
+
 
 #salir_cerrarsesion:hover{
     background-color: rgb(243, 95, 95);
@@ -99,10 +138,7 @@ form{
     font-size: 20px;
 }
 
-#holainvitado{
-	font-size: 40px;
-	margin-left: 36px;
-}
+
 
 
 

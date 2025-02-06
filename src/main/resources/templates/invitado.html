@@ -11,14 +11,14 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 id="holainvitado">Bienvenido al vivero</h1>
-            <div class="text-center">
-                <img src="/logoVivero.png" alt="Logo" id=logo-vivero>
-            </div>
+        
+     </header>
+        <div  id="cabecera">
+            <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
             <a th:href="@{/login}" class="btn btn-primary" id="inicio_sesion">INICIAR SESIÓN</a>
         </div>
-    </header>
+        <h1 class="hola" style="text-align:center">Bienvenido al vivero</h1>
+    
     <main class="container d-flex flex-column align-items-center mt-5">
         <h1 class="text-center mb-4">Listado de plantas</h1>
         <div class="table-responsive">
