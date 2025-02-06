@@ -10,11 +10,16 @@
 <body>
     <header>
         <img src="imagenFlores.jpg" alt="Vivero">
+        <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
-
+	<h1 class="hola" style="text-align:center">Insertar una nueva planta</h1>
+	<div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
+        <span th:text="${mensaje}"></span>
+    </div>
+    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
+        <span th:text="${error}"></span>
+    </div>
     <main class="container mt-4">
-        <h1 class="text-center mb-4">Insertar una nueva planta</h1>
-
         <form th:action="@{/insertar_planta}" method="post" class="text-center">
             <div class="mb-3">
                 <label for="codigo" class="form-label">CÓDIGO</label>
@@ -34,12 +39,7 @@
             <a th:href="@{/gestion_plantas}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER AL MENÚ DE PLANTAS</a>
         </div>
     </main>
-     <div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
-        <span th:text="${mensaje}"></span>
-    </div>
-    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
-        <span th:text="${error}"></span>
-    </div>
+     
     <script>
     setTimeout(function() {
         let alertMessages = document.querySelectorAll('.alert');

@@ -10,10 +10,10 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
+        <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
-
+	<h1 class="hola" style="text-align:center">Insertar una nueva persona</h1>
     <main class="container mt-5">
-        <h1 class="text-center">Insertar nueva persona</h1>
         <form th:action="@{/insertar_persona}" method="post" th:object="${persona}" class="mt-4">
    <div class="mb-3">
        <label for="nombre" class="form-label">NOMBRE</label>

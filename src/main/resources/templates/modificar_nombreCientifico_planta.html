@@ -10,10 +10,10 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
+        <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
-
+	<h1 class="hola" style="text-align:center">Modificar nombre científico de una planta</h1>
     <main class="container mt-5">
-        <h1 class="text-center mb-4">Modificar nombre científico</h1>
         <div th:if="${mensaje}" class="alert alert-success text-center" id="mensaje">
             <span th:text="${mensaje}"></span>
         </div>

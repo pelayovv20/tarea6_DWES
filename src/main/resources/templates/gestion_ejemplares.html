@@ -10,10 +10,10 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
+        <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
-
+	<h1 class="hola" style="text-align:center">Gestión de ejemplares</h1>
     <main class="container mt-5 text-center">
-        <h1>Gestión de ejemplares</h1>
         <a th:href="@{/listado_ejemplares}" class="btn btn-primary">LISTADO DE EJEMPLARES</a>
         <a th:href="@{/insertar_ejemplar}" class="btn btn-primary">INSERTAR NUEVO EJEMPLAR</a>
         <a th:href="@{/menu}" class="btn btn-primary" id="salir_cerrarsesion" onclick="goBack()">VOLVER</a>

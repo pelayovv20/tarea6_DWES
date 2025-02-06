@@ -4,65 +4,76 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Listado de mensajes por persona</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/estilos.css">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 </head>
 <body>
-<header>
-<img src="/imagenFlores.jpg" alt="Vivero">
-</header>
-
-<main>
-<h1 class="text-center mb-4">Listado de mensajes por persona</h1>
-<h2 class="text-center mt-4">Selecciona una persona</h2>
-        <form th:action="@{/listado_mensajes_persona}" method="get">
-            <div class="mb-3">
-                <label for="idPersona" class="form-label">Selecciona una persona</label>
-                <select name="idPersona" id="idPersona" class="form-select" required>
-                    <option value="" selected disabled>-- Selecciona una persona --</option>
-                    <option th:each="persona : ${personas}" th:value="${persona.id}" 
-                            th:text="'ID: ' + ${persona.id} + ' - Usuario: ' + ${persona.credenciales.usuario}">
-                    </option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Listar mensajes</button>
-            </form>
-
-
-
-<h2>Listado de mensajes de la persona <span class="th:text='${ejemplar.nombre}'"></span></h2>
-<div class="table-responsive">
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-        <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Fecha y hora</th>
-        <th scope="col">Mensaje</th>
-        <th scope="col">Persona</th>
-        <th scope="col">Ejemplar</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="mensaje : ${mensajes}">
-        <td th:text="${mensaje.id}"></td>
-        <td th:text="${#temporals.format(mensaje.fechaHora, 'dd-MM-yyyy   -     HH:mm:ss')}"></td>
-        <td th:text="${mensaje.mensaje}"></td>
-        <td th:text="${mensaje.persona.credenciales.usuario}"></td>
-        <td th:text="${mensaje.ejemplar.nombre}"></td>
-        </tr>
-        </tbody>
-        </table>
-        </div>
-
-<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary" id="salir_cerrarsesion" onclick="history.back()">VOLVER AL MENÚ DE LISTADOS DE MENSAJES</a>
+	<header>
+		<img src="/imagenFlores.jpg" alt="Vivero"> <img
+			src="/logoVivero.png" alt="Logo" id="logo-vivero">
+	</header>
+	<h1 class="hola" style="text-align: center">Listado de mensajes
+		por persona</h1>
+	<main>
+		<h2 class="text-center mt-4">Selecciona una persona</h2>
+		<form th:action="@{/listado_mensajes_persona}" method="get">
+			<div class="mb-3">
+				<label for="idPersona" class="form-label">Selecciona una
+					persona</label> <select name="idPersona" id="idPersona" class="form-select"
+					required>
+					<option value="" selected disabled>-- Selecciona una
+						persona --</option>
+					<option th:each="persona : ${personas}" th:value="${persona.id}"
+						th:text="'ID: ' + ${persona.id} + ' - Usuario: ' + ${persona.credenciales.usuario}">
+					</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">Listar
+				mensajes</button>
+		</form>
 
 
 
-</main>
+		<h2>
+			Listado de mensajes de la persona <span
+				class="th:text='${ejemplar.nombre}'"></span>
+		</h2>
+		<div class="table-responsive">
+			<table class="table table-bordered table-striped">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Fecha y hora</th>
+						<th scope="col">Mensaje</th>
+						<th scope="col">Persona</th>
+						<th scope="col">Ejemplar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="mensaje : ${mensajes}">
+						<td th:text="${mensaje.id}"></td>
+						<td
+							th:text="${#temporals.format(mensaje.fechaHora, 'dd-MM-yyyy   -     HH:mm:ss')}"></td>
+						<td th:text="${mensaje.mensaje}"></td>
+						<td th:text="${mensaje.persona.credenciales.usuario}"></td>
+						<td th:text="${mensaje.ejemplar.nombre}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-<div th:if="${mensaje}" class="alert alert-success text-center"
+		<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary"
+			id="salir_cerrarsesion" onclick="history.back()">VOLVER AL MENÚ
+			DE LISTADOS DE MENSAJES</a>
+
+
+
+	</main>
+
+	<div th:if="${mensaje}" class="alert alert-success text-center"
 		id="mensaje">
 		<span th:text="${mensaje}"></span>
 	</div>

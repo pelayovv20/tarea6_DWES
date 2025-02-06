@@ -10,10 +10,10 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
+        <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
-
+	<h1 class="hola" style="text-align:center">Modificar datos de una planta</h1>
     <main class="container mt-4 text-center">
-        <h1 class="mb-4">Modificar datos de una planta</h1>
         <a th:href="@{/modificar_nombre_comun}" class="btn btn-primary mb-2">MODIFICAR NOMBRE COMÚN</a><br>
 		<a th:href="@{/modificar_nombre_cientifico}" class="btn btn-primary mb-2">MODIFICAR NOMBRE CIENTÍFICO</a><br>
 		<a th:href="@{/gestion_plantas}" class="btn btn-primary mt-4" id="salir_cerrarsesion">VOLVER AL MENÚ DE PLANTAS</a>

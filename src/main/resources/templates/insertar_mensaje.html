@@ -10,11 +10,10 @@
 <body>
     <header>
         <img src="/imagenFlores.jpg" alt="Vivero">
+        <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
-
+	<h1 class="hola" style="text-align:center">Insertar un nuevo mensaje</h1>
     <main class="container mt-5">
-        <h1 class="text-center mb-4">Insertar mensaje</h1>
-        
         <h2 class="text-center mt-4">Selecciona un ejemplar</h2>
         <form th:action="@{/insertar_mensaje}" method="post">
             <div class="mb-3">
