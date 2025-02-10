@@ -50,7 +50,7 @@ public class EjemplaresController {
 	    }
 	    Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);
 	    if (planta == null) {
-	        model.addAttribute("error", "El código de planta introducido no existe en la base de datos");
+	        model.addAttribute("error", "El código " + codigoPlanta + " no existe en el vivero");
 	        return "listado_ejemplares";
 	    }
 	    List<Ejemplar> ejemplares = (List<Ejemplar>) servEjemplar.verTodos();

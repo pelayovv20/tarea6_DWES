@@ -13,8 +13,11 @@
          <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
 
-    
+    <div th:if="${error}" class="alert alert-danger text-center" id="mensaje">
+            <span th:text="${error}"></span>
+        </div>
         <form id="formulario_login"  th:action="@{/login}" th:object="${credenciales}" method="post">
+        
          <h1>Iniciar sesión</h1>
         <label for="usuario"></label>
         <input type="text"  id="usuario" th:field="*{usuario}" placeholder="Usuario">
@@ -26,9 +29,7 @@
     <a th:href="@{/}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 </form>
        
-    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
-        <span th:text="${error}"></span>
-    </div>
+    
     <script>
     setTimeout(function() {
         let alertMessages = document.querySelectorAll('.alert');

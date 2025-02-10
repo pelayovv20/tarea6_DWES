@@ -70,11 +70,11 @@ public class PlantasController {
 	    public String insertarPlanta(@RequestParam("codigo") String codigo,@RequestParam("nombreComun") String nombreComun,@RequestParam("nombreCientifico") String nombreCientifico,Model model) {
 	    	try {
 	            Planta p = new Planta(codigo, nombreComun, nombreCientifico);
-	            if(servPlanta.validarPlanta(p)) {
+	            if(!servPlanta.codigoExistente(codigo)) {
 	            	model.addAttribute("mensaje", "Planta insertada");
 	            	 servPlanta.insertar(p);
 	            }else {
-	            	model.addAttribute("error", "Error al insertar la planta");
+	            	model.addAttribute("error", "La planta " + codigo + " ya existe en el vivero");
 	            }
 	            
 	        } catch (Exception e) {
@@ -86,9 +86,11 @@ public class PlantasController {
 	    @PostMapping("/modificar_nombre_comun")
 	    public String modificarNombreComun(@RequestParam("codigo") String codigo, @RequestParam("nombreComun") String nuevoNombreComun,Model model) {
 	        try {
-	        	if(servPlanta.validarCodigo(codigo)) {
+	        	if(servPlanta.codigoExistente(codigo)) {
 	        		model.addAttribute("mensaje", "Nombre común modificado");
 	        		servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
+	        	}else {
+	        		model.addAttribute("error", "La planta " + codigo + " no existe en el vivero");
 	        	}
 	        } catch (Exception e) {
 	            model.addAttribute("error", "Error al modificar el nombre común");
@@ -101,9 +103,11 @@ public class PlantasController {
 	    @PostMapping("/modificar_nombre_cientifico")
 	    public String modificarNombreCientifico(@RequestParam("codigo") String codigo, @RequestParam("nombreCientifico") String nuevoNombreCientifico, Model model) {
 	        try {
-	        	if(servPlanta.validarCodigo(codigo)) {
+	        	if(servPlanta.codigoExistente(codigo)) {
 	        		model.addAttribute("mensaje", "Nombre científico modificado");
 	        		servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
+	        	}else {
+	        		model.addAttribute("error", "La planta " + codigo + " no existe en el vivero");
 	        	}
 	            
 	        } catch (Exception e) {

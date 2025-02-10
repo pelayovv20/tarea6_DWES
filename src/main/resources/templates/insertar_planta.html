@@ -13,25 +13,25 @@
         <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
 	<h1 class="hola" style="text-align:center">Insertar una nueva planta</h1>
-	<div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
-        <span th:text="${mensaje}"></span>
-    </div>
-    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
-        <span th:text="${error}"></span>
-    </div>
     <main class="container mt-4">
+    <div th:if="${mensaje}" class="alert alert-success text-center" id="mensaje">
+            <span th:text="${mensaje}"></span>
+        </div>
+        <div th:if="${error}" class="alert alert-danger text-center" id="mensaje">
+            <span th:text="${error}"></span>
+        </div>
         <form th:action="@{/insertar_planta}" method="post" class="text-center">
             <div class="mb-3">
                 <label for="codigo" class="form-label">CÓDIGO</label>
-                <input type="text" id="codigo" name="codigo" class="form-control">
+                <input type="text" id="codigo" name="codigo" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label for="nombre_comun" class="form-label">NOMBRE COMÚN</label>
-                <input type="text" id="nombre_comun" name="nombreComun" class="form-control">
+                <input type="text" id="nombre_comun" name="nombreComun" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label for="nombre_cientifico" class="form-label">NOMBRE CIENTÍFICO</label>
-                <input type="text" id="nombre_cientifico" name="nombreCientifico" class="form-control">
+                <input type="text" id="nombre_cientifico" name="nombreCientifico" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary">INSERTAR</button>
         </form>

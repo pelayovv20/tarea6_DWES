@@ -55,12 +55,7 @@
             <a th:href="@{/menu_modificar_plantas}" class="btn btn-primary" id="salir_cerrarsesion">Volver</a>
         </div>
     </main>
-    <div th:if="${mensaje}" class="alert alert-success text-center" role="alert">
-        <span th:text="${mensaje}"></span>
-    </div>
-    <div th:if="${error}" class="alert alert-danger text-center" role="alert">
-        <span th:text="${error}"></span>
-    </div>
+    
 <script>
     setTimeout(function() {
         let alertMessages = document.querySelectorAll('.alert');

@@ -54,7 +54,6 @@ public class Controlador {
         this.usuarioAutenticado = nombreUsuario;
         this.perfil = perfilUsuario;
         this.fechaInicioSesion = fechaInicioSesion;
-        System.out.println("Iniciado sesión con: " + nombreUsuario);
     }
 
 	/**
