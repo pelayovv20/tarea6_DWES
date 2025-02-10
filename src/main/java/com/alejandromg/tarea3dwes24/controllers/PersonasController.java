@@ -35,7 +35,10 @@ public class PersonasController {
 	    List<Persona> personas = (List<Persona>) servPersona.verTodos();
 	    for (Persona persona : personas) {
 	        if (persona.getCredenciales() != null) {
-	            String usuario = persona.getCredenciales().getUsuario(); 
+	            String usuario = persona.getCredenciales().getUsuario();
+	            String contraseña = persona.getCredenciales().getPassword();
+	            String contraseñaOculta = "*".repeat(contraseña.length());
+	            persona.getCredenciales().setPassword(contraseñaOculta);
 	        }
 	    }
 	    model.addAttribute("personas", personas);
