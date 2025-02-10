@@ -14,18 +14,19 @@
         <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
 	<h1 class="hola" style="text-align:center">Listado de personas</h1>
-    <main class="container mt-5">
-        <table class="table table-striped table-hover mt-4 text-center">
-            <thead class="table-dark">
-                <tr>
+	<main class="container d-flex flex-column align-items-center mt-5">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Email</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Contraseña</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr th:each="persona : ${personas}">
                     <td th:text="${persona.id}"></td>
                     <td th:text="${persona.nombre}"></td>
@@ -34,10 +35,11 @@
                     <td th:text="${persona.credenciales.password}"></td>
                 </tr>
             </tbody>
-        </table>
+            </table>
+        </div>
+    </main>
         <div class="text-center mt-4">
             <a th:href="@{/gestion_personas}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
         </div>
-    </main>
 </body>
 </html>

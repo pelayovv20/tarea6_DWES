@@ -13,7 +13,7 @@
          <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
 
-    <div th:if="${error}" class="alert alert-danger text-center" id="mensaje">
+     <div th:if="${error}" class="alert alert-danger text-center" id="mensaje">
             <span th:text="${error}"></span>
         </div>
         <form id="formulario_login"  th:action="@{/login}" th:object="${credenciales}" method="post">
