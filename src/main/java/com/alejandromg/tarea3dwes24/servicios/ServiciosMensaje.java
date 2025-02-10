@@ -2,12 +2,12 @@ package com.alejandromg.tarea3dwes24.servicios;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.alejandromg.tarea3dwes24.modelo.Mensaje;
 import com.alejandromg.tarea3dwes24.repositorios.MensajeRepository;
 
@@ -44,8 +44,8 @@ public class ServiciosMensaje {
      * 
      * @return una colección de mensajes
      */
-    public Collection<Mensaje> verTodos() {
-        return mensajeRepo.findAll();
+    public Page<Mensaje> verMensajesPaginados(Pageable pageable) {
+        return mensajeRepo.findAll(pageable);
     }
 
     /**

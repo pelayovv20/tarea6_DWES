@@ -41,6 +41,22 @@
 				</tbody>
 			</table>
 		</div>
+		<div class="pagination d-flex justify-content-center mt-3">
+    <ul class="pagination">
+        <li th:if="${currentPage > 0}" class="page-item">
+            <a class="page-link" th:href="@{/listado_todos_mensajes(page=${currentPage - 1}, size=10)}" id="antsig1">« Anterior</a>
+        </li>
+
+        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item" 
+            th:classappend="${i == currentPage} ? 'active'">
+            <a class="page-link" th:href="@{/listado_todos_mensajes(page=${i}, size=10)}" th:text="${i + 1}"></a>
+        </li>
+
+        <li th:if="${currentPage + 1 < totalPages}" class="page-item">
+            <a class="page-link" th:href="@{/listado_todos_mensajes(page=${currentPage + 1}, size=10)}"  id="antsig2">Siguiente »</a>
+        </li>
+    </ul>
+</div>
 		<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary"
 			id="salir_cerrarsesion">VOLVER AL MENÚ DE MENSAJES</a>
 

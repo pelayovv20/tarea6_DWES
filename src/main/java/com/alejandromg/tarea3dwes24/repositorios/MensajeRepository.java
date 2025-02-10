@@ -27,5 +27,6 @@ public interface MensajeRepository extends JpaRepository <Mensaje, Long>{
     
     @Query("SELECT COUNT(m) FROM Mensaje m WHERE m.persona.id = :idPersona")
     Long contarMensajesPorPersona(@Param("idPersona") Long idPersona);
+    
 
 }
