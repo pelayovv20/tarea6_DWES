@@ -36,10 +36,10 @@
 		<form th:action="@{/insertar_ejemplar}" method="post">
 			<label for="codigo">Código de la planta:</label> <input type="text"
 				name="codigo" id="codigo" class="form-control" required>
-			<button type="submit" class="btn btn-primary mt-2">Insertar</button>
+			<button type="submit" class="btn btn-primary mt-2">INSERTAR</button>
 		</form>
 
-		<a th:href="@{/gestion_ejemplares}" class="btn btn-primary" id="salir_cerrarsesion">Volver</a>
+		<a th:href="@{/gestion_ejemplares}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
 	</main>
 	<div th:if="${mensaje}" class="alert alert-success text-center"
 		id="mensaje">
