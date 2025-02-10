@@ -9,12 +9,12 @@
 </head>
 <body>
     <header>
-        <img src="/imagenFlores.jpg" alt="Vivero">
+        <img src="/viverodwes.png" alt="Vivero">
          <img src="/logoVivero.png" alt="Logo" id="logo-vivero">
     </header>
 
     
-        <form id="formulario_login" th:action="@{/login}" th:object="${credenciales}" method="post">
+        <form id="formulario_login"  th:action="@{/login}" th:object="${credenciales}" method="post">
          <h1>Iniciar sesión</h1>
         <label for="usuario"></label>
         <input type="text"  id="usuario" th:field="*{usuario}" placeholder="Usuario">
