@@ -85,12 +85,10 @@ public class PersonasController {
             }else {
             	model.addAttribute("error", "Error al insertar la persona");
             }
-            
            
         } catch (Exception e) {
             model.addAttribute("error", "Error al insertar la persona");
         }
-
         return "insertar_persona";
     }
 

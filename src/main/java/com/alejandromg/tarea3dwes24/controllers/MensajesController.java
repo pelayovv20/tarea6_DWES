@@ -59,14 +59,11 @@ public class MensajesController {
     }
 
     @GetMapping("/listado_todos_mensajes")
-    public String listarMensajesPaginados(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size,
-            Model model) {
+    public String listarMensajesPaginados(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size,Model model) {
         Page<Mensaje> paginaMensajes = servMensaje.verMensajesPaginados(PageRequest.of(page, size));
-
         model.addAttribute("mensajes", paginaMensajes.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginaMensajes.getTotalPages());
-
         return "listado_todos_mensajes";
     }
 
@@ -88,7 +85,6 @@ public class MensajesController {
            
             if (mensajes.isEmpty()) {
             	model.addAttribute("error", "No hay mensajes guardados para el ejemplar " + ejemplar.getNombre());
-            
         } else {
             model.addAttribute("mensajes", mensajes);
         }
@@ -102,7 +98,6 @@ public class MensajesController {
     @GetMapping("/listado_mensajes_planta")
     public String listarMensajesPorPlanta(@RequestParam(name = "codigoPlanta", required = false) String codigoPlanta, Model model) {
 model.addAttribute("plantas", servPlanta.verTodas());
-    	
         if (codigoPlanta == null) {
         	return "listado_mensajes_planta";
         }
@@ -114,16 +109,12 @@ model.addAttribute("plantas", servPlanta.verTodas());
         
         List<Mensaje> mensajes = new ArrayList<>();
             mensajes = servMensaje.verMensajesPorCodigoPlanta(codigoPlanta);
-           
             if (mensajes.isEmpty()) {
-            	model.addAttribute("error", "No hay mensajes guardados para la planta " + planta.getCodigo());
-            
+            	model.addAttribute("error", "No hay mensajes guardados para la planta " + planta.getCodigo()); 
         } else {
             model.addAttribute("mensajes", mensajes);
         }
         model.addAttribute("codigoPlanta", codigoPlanta);
-        
-        
         return "listado_mensajes_planta";
     }
 
@@ -139,13 +130,11 @@ model.addAttribute("personas", servPersona.verTodos());
         	model.addAttribute("error", "El id de la persona introducida no existe en la base de datos");
         	return "listado_mensajes_persona";
         }
-        
         List<Mensaje> mensajes = new ArrayList<>();
             mensajes = servMensaje.verMensajesPorPersona(idPersona);
            
             if (mensajes.isEmpty()) {
             	model.addAttribute("error", "No hay mensajes guardados para la persona " + persona.get().getCredenciales().getUsuario() );
-            
         } else {
             model.addAttribute("mensajes", mensajes);
         }
@@ -156,24 +145,15 @@ model.addAttribute("personas", servPersona.verTodos());
     }
 
     @GetMapping("/listado_mensajes_fechas")
-    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) String fecha1,
-    									 @RequestParam(name = "fechaFin", required = false) String fecha2, Model model) {
-
-
+    public String listarMensajesPorFechas(@RequestParam(name = "fechaInicio", required = false) String fecha1,@RequestParam(name = "fechaFin", required = false) String fecha2, Model model) {
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     		LocalDateTime fechaInicio = null;
     		LocalDateTime fechaFin = null;
-
-
     		if (fecha1 != null && !fecha1.isEmpty()) {
-    			
     				LocalDate fechaInicioCorrecta = LocalDate.parse(fecha1, formatter);
     				fechaInicio = fechaInicioCorrecta.atStartOfDay();
-    			
     		}
-
     		if (fecha2 != null && !fecha2.isEmpty()) {
-    			
     				LocalDate fechaFinCorrecta = LocalDate.parse(fecha2, formatter);
     				fechaFin = fechaFinCorrecta.atStartOfDay();
     				if (fechaFin.isBefore(fechaInicio)) {
@@ -182,7 +162,6 @@ model.addAttribute("personas", servPersona.verTodos());
     				}
     			
     		}
-
     		if (fechaInicio != null && fechaFin != null) {
     			List<Mensaje> mensajes = servMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
     			if (mensajes.isEmpty()) {
@@ -191,10 +170,8 @@ model.addAttribute("personas", servPersona.verTodos());
     				model.addAttribute("mensajes", mensajes);
     			}
     		} else if (fecha1 != null || fecha2 != null) {
-
     			model.addAttribute("error", "Ambas fechas son necesarias");
     		}
-
     		return "listado_mensajes_fechas";
     }
     
@@ -205,17 +182,12 @@ model.addAttribute("personas", servPersona.verTodos());
     }
 
     @PostMapping("/insertar_mensaje")
-    public String insertarMensaje(@RequestParam("idEjemplar") Long idEjemplar,
-                                  @RequestParam("contenido") String contenido,
-                                  Model model) {
-        
-            
+    public String insertarMensaje(@RequestParam("idEjemplar") Long idEjemplar,@RequestParam("contenido") String contenido,Model model) {
             try {
             Ejemplar ejemplar = servEjemplar.buscarPorID(idEjemplar);
             if (ejemplar == null) {
                 model.addAttribute("error", "No se encontró un ejemplar con el ID: " + idEjemplar);
-            }else {
-
+            }else{
             Mensaje nuevoMensaje = new Mensaje();
             String usuarioAutenticado = controlador.getUsuarioAutenticado();
             Persona persona = servCredenciales.buscarPersonaPorUsuario(usuarioAutenticado);
@@ -224,7 +196,6 @@ model.addAttribute("personas", servPersona.verTodos());
             nuevoMensaje.setMensaje(contenido);
             nuevoMensaje.setPersona(persona);
             servMensaje.insertar(nuevoMensaje);
-
             model.addAttribute("mensaje", "Mensaje insertado");
             }
         } catch (Exception e) {

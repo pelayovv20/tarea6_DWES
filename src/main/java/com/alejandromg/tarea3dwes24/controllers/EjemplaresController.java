@@ -1,4 +1,4 @@
-package com.alejandromg.tarea3dwes24.controllers;
+								package com.alejandromg.tarea3dwes24.controllers;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -63,7 +63,6 @@ public class EjemplaresController {
 	    model.addAttribute("codigoPlanta", codigoPlanta);
 	    return "listado_ejemplares";
 	}
-
 
 
     @GetMapping("/insertar_ejemplar")

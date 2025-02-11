@@ -18,15 +18,6 @@
         <a th:href="@{/insertar_ejemplar}" class="btn btn-primary">INSERTAR NUEVO EJEMPLAR</a>
         <a th:href="@{/menu}" class="btn btn-primary" id="salir_cerrarsesion" onclick="goBack()">VOLVER</a>
     </main>
-    
-     <script>
-        function goBack() {
-            if (document.referrer && document.referrer !== window.location.href) {
-                window.history.back();
-            } else {
-                window.location.href = '/invitado'; 
-            }
-        }
-    </script>
+    <script src="/script.js"></script>
 </body>
 </html>

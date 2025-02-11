@@ -54,15 +54,6 @@
             <a th:href="@{/menu_modificar_plantas}" class="btn btn-primary" id="salir_cerrarsesion">VOLVER</a>
         </div>
     </main>
-<script>
-    setTimeout(function() {
-        let alertMessages = document.querySelectorAll('.alert');
-        alertMessages.forEach(function(alert) {
-            alert.style.transition = "opacity 0.5s ease-out";
-            alert.style.opacity = "0";
-            setTimeout(() => alert.remove(), 500);
-        });
-    }, 3000);
-</script>
+<script src="/script.js"></script>
 </body>
 </html>
