@@ -18,6 +18,12 @@
 	<h1 class="hola" style="text-align: center">Listado de mensajes
 		por ejemplar</h1>
 	<main>
+	
+	<div th:if="${error}" class="alert alert-danger text-center"
+		id="mensaje">
+		<span th:text="${error}"></span>
+	</div>
+	
 		<h2 class="text-center mt-4">Selecciona un ejemplar</h2>
 		<form th:action="@{/listado_mensajes_ejemplar}" method="get">
 			<div class="mb-3">
@@ -38,8 +44,7 @@
 
 
 		<h2>
-			Listado de mensajes del ejemplar <span
-				class="th:text='${ejemplar.nombre}'"></span>
+			Listado de mensajes del ejemplar seleccionado  
 		</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
@@ -67,14 +72,7 @@
 		<a th:href="@{/menu_listado_mensajes}" class="btn btn-primary"
 			id="salir_cerrarsesion">VOLVER AL MENÚ DE MENSAJES</a>
 	</main>
-	<div th:if="${mensaje}" class="alert alert-success text-center"
-		id="mensaje">
-		<span th:text="${mensaje}"></span>
-	</div>
-	<div th:if="${error}" class="alert alert-danger text-center"
-		id="mensaje">
-		<span th:text="${error}"></span>
-	</div>
+	
 
 	<script>
             setTimeout(function() {

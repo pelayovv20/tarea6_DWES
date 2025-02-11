@@ -18,6 +18,10 @@
 	<h1 class="hola" style="text-align: center">Listado de mensajes
 		por persona</h1>
 	<main>
+	<div th:if="${error}" class="alert alert-danger text-center"
+		id="mensaje">
+		<span th:text="${error}"></span>
+	</div>
 		<h2 class="text-center mt-4">Selecciona una persona</h2>
 		<form th:action="@{/listado_mensajes_persona}" method="get">
 			<div class="mb-3">
@@ -73,14 +77,8 @@
 
 	</main>
 
-	<div th:if="${mensaje}" class="alert alert-success text-center"
-		id="mensaje">
-		<span th:text="${mensaje}"></span>
-	</div>
-	<div th:if="${error}" class="alert alert-danger text-center"
-		id="mensaje">
-		<span th:text="${error}"></span>
-	</div>
+	
+	
 
 
 </body>

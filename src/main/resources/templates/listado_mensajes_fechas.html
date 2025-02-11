@@ -18,12 +18,20 @@
 	<h1 class="hola" style="text-align: center">Listado de mensajes
 		por un rango de fechas</h1>
 	<main>
+	<div th:if="${mensaje}" class="alert alert-success text-center"
+		id="mensaje">
+		<span th:text="${mensaje}"></span>
+	</div>
+	<div th:if="${error}" class="alert alert-danger text-center"
+		id="mensaje">
+		<span th:text="${error}"></span>
+	</div>
 		<form th:action="@{/listado_mensajes_fechas}" th:object="${mensajes}"
 			method="get">
 			<label for="fecha_1">FECHA DE INICIO</label> <input type="date"
-				class="btn btn-primary" id="fecha_1" name="fechaInicio"> <br>
+				class="btn btn-primary" id="fecha_1" name="fechaInicio" required> <br>
 			<label for="fecha_2">FECHA DE FIN</label> <input type="date"
-				class="btn btn-primary" id="fecha_2" name="fechaFin"> <br>
+				class="btn btn-primary" id="fecha_2" name="fechaFin" required> <br>
 			<input type="submit" class="btn btn-primary" value="LISTAR MENSAJES">
 		</form>
 
@@ -63,14 +71,7 @@
 
 
 	</main>
-	<div th:if="${mensaje}" class="alert alert-success text-center"
-		id="mensaje">
-		<span th:text="${mensaje}"></span>
-	</div>
-	<div th:if="${error}" class="alert alert-danger text-center"
-		id="mensaje">
-		<span th:text="${error}"></span>
-	</div>
+	
 
 
 

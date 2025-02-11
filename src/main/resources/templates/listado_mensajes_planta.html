@@ -18,6 +18,10 @@
 	<h1 class="hola" style="text-align: center">Listado de mensajes
 		por planta</h1>
 	<main class="container d-flex flex-column align-items-center mt-5">
+	<div th:if="${error}" class="alert alert-danger text-center"
+		id="mensaje">
+		<span th:text="${error}"></span>
+	</div>
 		<h2>Plantas disponibles</h2>
 		<table class="table table-bordered table-striped">
 			<thead class="table-dark">
@@ -39,15 +43,14 @@
 		<h2>Selecciona una planta</h2>
 		<form th:action="@{/listado_mensajes_planta}" method="get">
 			<label for="codigoPlanta">Código de la planta</label> <input
-				type="text" name="codigoPlanta" id="codigoPlanta"
+				type="text" name="codigoPlanta" id="codigoPlanta" required
 				class="form-control" th:value="${codigoPlanta}">
 			<button type="submit" class="btn btn-primary mt-2">Ver
 				mensajes</button>
 		</form>
 
 		<h2>
-			Listado de mensajes de la planta <span
-				class="th:text='${ejemplar.nombre}'"></span>
+			Listado de mensajes de la planta seleccionada
 		</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
@@ -76,14 +79,8 @@
 			id="salir_cerrarsesion">VOLVER AL MENÚ DE MENSAJES</a>
 	</main>
 
-	<div th:if="${mensaje}" class="alert alert-success text-center"
-		id="mensaje">
-		<span th:text="${mensaje}"></span>
-	</div>
-	<div th:if="${error}" class="alert alert-danger text-center"
-		id="mensaje">
-		<span th:text="${error}"></span>
-	</div>
+	
+	
 
 
 

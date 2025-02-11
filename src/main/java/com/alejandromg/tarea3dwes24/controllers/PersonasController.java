@@ -71,21 +71,23 @@ public class PersonasController {
             credenciales.setUsuario(usuario);
             credenciales.setPassword(password);
             credenciales.setPersona(persona); 
-            if(servPersona.validarPersona(persona)) {
+            
             	if (servCredenciales.usuarioExistente(usuario)) {
             		model.addAttribute("error", "El nombre de usuario ya existe, Por favor introduce otro");
-            	}else if (servCredenciales.validarContraseña(password)) {
-            		servPersona.insertar(persona);
-            		servCredenciales.insertar(usuario, password, persona.getId());
-            		 model.addAttribute("mensaje", "Persona y sus credenciales insertadas");
+            	}else if(usuario.length()<3 || usuario.contains(" ")) {
+            		model.addAttribute("error", "Nombre de usuario incorrecto. Por favor introduce un nombre de usuario válido");
             	}else {
-            		model.addAttribute("error", "Contraseña incorrecta. Por favor introduce una contraseña válida");
+            		if (servCredenciales.validarContraseña(password)) {
+                		servPersona.insertar(persona);
+                		servCredenciales.insertar(usuario, password, persona.getId());
+                		 model.addAttribute("mensaje", "Persona y sus credenciales insertadas");
+                	}else {
+                		model.addAttribute("error", "Contraseña incorrecta. Por favor introduce una contraseña válida");
+                	}
+            		
             	}
-            	 
-            }else {
-            	model.addAttribute("error", "Error al insertar la persona");
-            }
-           
+            	
+            
         } catch (Exception e) {
             model.addAttribute("error", "Error al insertar la persona");
         }

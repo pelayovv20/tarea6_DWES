@@ -103,7 +103,7 @@ model.addAttribute("plantas", servPlanta.verTodas());
         }
         Planta planta = servPlanta.buscarPorCodigo(codigoPlanta);
         if (planta==null) {
-        	model.addAttribute("error", "El código de la planta introducida no existe en la base de datos");
+        	model.addAttribute("error", "El código de la planta introducida no existe en el vivero");
         	return "listado_mensajes_planta";
         }
         
